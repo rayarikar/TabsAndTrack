@@ -1,0 +1,29 @@
+#
+# generated on 2013/08/17 03:46:19
+#
+# --table-start--
+dataClass=com.tnt.entity.UserDetails
+tableName=userdetails
+# --table-fields-start--
+# --field-start--
+fieldName=userId
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=firstName
+# --field-end--
+# --field-start--
+fieldName=lastName
+# --field-end--
+# --field-start--
+fieldName=emailId
+# --field-end--
+# --field-start--
+fieldName=username
+# --field-end--
+# --field-start--
+fieldName=password
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################

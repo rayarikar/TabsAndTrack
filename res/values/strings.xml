@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">TabsAndTrack</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+
+    <!-- activity_login -->
+    <string name="usernameHint">Username</string>
+    <string name="passwordHint">Password</string>
+    <string name="rememberMeText">Remember Me</string>
+    <string name="signInButton">Sign In</string>
+    <string name="signUpButton">Sign Up</string>
+
+    <!-- activity_sign_up -->
+    <string name="title_activity_user_details">UserDetailsActivity</string>
+    <string name="firstNameHint">First Name</string>
+    <string name="lastNameHint">Last Name</string>
+    <string name="emailIdHint">Email Address</string>
+    <string name="retypePasswordHint">Re-type Password</string>
+    <string name="nextButton">Next</string>
+
+</resources>

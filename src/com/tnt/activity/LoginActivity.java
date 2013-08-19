@@ -1,6 +1,7 @@
 package com.tnt.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -15,6 +16,8 @@ public class LoginActivity extends Activity {
 	}
 	
 	public void onSignUp(View v){
-		setContentView(R.layout.activity_sign_up);
+
+		Intent signUpIntent = new Intent(this, SignUpActivity.class);
+		startActivity(signUpIntent);
 	}
 }

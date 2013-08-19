@@ -6,7 +6,14 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="title_activity_add_account">AddAccountActivity</string>
+    
 
+    <!-- global -->
+    <string name="nextButton">Next</string>
+    <string name="cancelButton">Cancel</string>
+    <string name="doneButton">Done</string>
+    
     <!-- activity_login -->
     <string name="usernameHint">Username</string>
     <string name="passwordHint">Password</string>
@@ -20,6 +27,13 @@
     <string name="lastNameHint">Last Name</string>
     <string name="emailIdHint">Email Address</string>
     <string name="retypePasswordHint">Re-type Password</string>
-    <string name="nextButton">Next</string>
+    
+    
+     <!-- activity_add_account -->
+    <string name="accountNameHint">Account Name</string>
+    <string name="accountLimitHint">Account Limit</string>
+    <string name="addMoreAccountsHint">Add More Accounts</string>
+    
+    
 
 </resources>

@@ -1,7 +1,5 @@
 package com.tnt.activity;
 
-import java.sql.SQLException;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,6 +39,10 @@ public class AddAccountActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	}
 
 
+	/**
+	 * @author Rohan
+	 * @param view
+	 */
 	public void onDoneClick(View view) {
 		
 		String accountName = ((EditText) findViewById(R.id.accountName))
@@ -53,8 +55,8 @@ public class AddAccountActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		persistIntoUserDetails();
 		persistIntoAccount();
 		
-		Intent homeIntent = new Intent(this, HomeActivity.class);
-		startActivity(homeIntent);
+		Intent loginIntent = new Intent(this, LoginActivity.class);
+		startActivity(loginIntent);
 
 	}
 	

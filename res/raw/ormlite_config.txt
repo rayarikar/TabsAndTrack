@@ -1,5 +1,5 @@
 #
-# generated on 2013/08/18 09:06:20
+# generated on 2013/08/19 09:27:57
 #
 # --table-start--
 dataClass=com.tnt.entity.Account

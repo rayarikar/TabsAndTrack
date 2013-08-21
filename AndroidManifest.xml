@@ -34,6 +34,10 @@
             android:name="com.tnt.activity.AddAccountActivity"
             android:label="@string/title_activity_add_account" >
         </activity>
+        <activity
+            android:name="com.tnt.dboperation.UserDetailsDbOperations"
+            android:label="@string/title_activity_user_details_db_operations" >
+        </activity>
     </application>
 
 </manifest>

@@ -60,6 +60,9 @@ public class AddAccountActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	}
 	
+	public void onCancelNext(View v){
+	}
+	
 	/**
 	 * persists all the details into UserDetails table
 	 * @author Rohan

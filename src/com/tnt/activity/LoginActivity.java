@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.tabsandtrack.R;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
@@ -18,51 +19,53 @@ import com.tnt.entity.UserDetails;
 public class LoginActivity extends OrmLiteBaseActivity<DatabaseHelper>{
 
 	RuntimeExceptionDao<UserDetails, Integer> userDetailsDao;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		try{
-		userDetailsDao = getHelper().getUserDetailsDao();
+			userDetailsDao = getHelper().getUserDetailsDao();
 		} catch(Exception e){
 			e.printStackTrace();
 		}
 		setContentView(R.layout.activity_login);
 	}
-	
+
 	public void onSignUp(View v){
 		Intent signUpIntent = new Intent(this, SignUpActivity.class);
 		startActivity(signUpIntent);
 	}
-	
+
 	public void onSignInClick(View v) throws SQLException{
 		// get all the details of login activity
 		String enteredUserName = ((EditText) findViewById(R.id.userName)).getText().toString();
 		String enteredPassword = ((EditText) findViewById(R.id.password)).getText().toString();
 		boolean isRemeberMeChecked = ((CheckBox) findViewById(R.id.rememberMe)).isChecked();		
-				
+
 		List<UserDetails> userDetailsList = userDetailsDao.queryForAll();
 		boolean isLoginSuccess = false;
-		
+
 		// loop over the list to get the user name
 		for (UserDetails user : userDetailsList){
 			if (enteredUserName.equalsIgnoreCase(user.getUsername()) && enteredPassword.equals(user.getPassword()))
 			{
 				isLoginSuccess = true;
+				finish();
+				Intent redirectToHome = new Intent(this, HomeActivity.class);
+				redirectToHome.putExtra("com.tnt.activity.userObj", user);
+				startActivity(redirectToHome);
 				break;
 			}
-			else{		
-				Intent loadSameActivity = new Intent();
-				finish();
-				startActivity(loadSameActivity);
-			}
 		}
-		
+		if (!isLoginSuccess){
+			Toast invalidLoginToast = Toast.makeText(this, "Invalid username or password. Please try again", Toast.LENGTH_LONG);
+			invalidLoginToast.show();		
+		}
 		// if user has checked the remember me checkbox
 		if (isRemeberMeChecked){
-			
+
 		}
 
-				
+
 	}
 }

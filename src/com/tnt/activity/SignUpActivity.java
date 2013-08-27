@@ -45,5 +45,10 @@ public class SignUpActivity extends Activity {
 		
 		
 	}
+	
+	public void onCancelNext(View v){
+		Intent redirectToLogin = new Intent(this, LoginActivity.class);
+		startActivity(redirectToLogin);
+	}
 
 }

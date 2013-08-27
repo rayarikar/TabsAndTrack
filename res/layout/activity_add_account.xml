@@ -41,7 +41,8 @@
         android:layout_height="wrap_content" 
         android:hint="@string/cancelButton"
         android:layout_margin="10dp"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:onClick="onCancelClick"/>
 
     <Button
         android:id="@+id/doneAddAccountBtn"

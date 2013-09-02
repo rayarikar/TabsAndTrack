@@ -62,6 +62,7 @@ public class AddTypeActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	 */
 	public void onDoneClick(View view){
 		String transactionName = typeName.getText().toString();
+		
 	}
 
 }

@@ -47,7 +47,7 @@ public class LoginActivity extends OrmLiteBaseActivity<DatabaseHelper>{
 	 * The default return type is false
 	 * @param context
 	 * @return
-	 * @author Rohan
+	 * @author Rohan / Ameya
 	 */
 	private boolean isRemeberMeChecked(Context context){
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -58,7 +58,7 @@ public class LoginActivity extends OrmLiteBaseActivity<DatabaseHelper>{
 	/**
 	 * This method is used to put in the user input remember me
 	 * @param rememberMeChecked
-	 * @author Rohan
+	 * @author Rohan / Ameya
 	 */
 	private void setRemeberMeInSharedPreferences(boolean rememberMeChecked){
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -68,11 +68,24 @@ public class LoginActivity extends OrmLiteBaseActivity<DatabaseHelper>{
 	}
 
 
+	/**
+	 * On click of sign up the user should be redirected to sign up activity
+	 * @param v
+	 * @author Rohan / Ameya
+	 */
 	public void onSignUp(View v){
 		Intent signUpIntent = new Intent(this, SignUpActivity.class);
 		startActivity(signUpIntent);
 	}
 
+	/**
+	 * this method authenticates the user. If the user is authenticated he is redirected to the home screen
+	 * If the user checks the remember me flag, then the flag is stored in the shared preferences and the user is 
+	 * always redirected to the home activity. 
+	 * @param v
+	 * @throws SQLException
+	 * @author Rohan / Ameya
+	 */
 	public void onSignInClick(View v) throws SQLException{
 		// get all the details of login activity
 		String enteredUserName = ((EditText) findViewById(R.id.userName)).getText().toString();
@@ -106,7 +119,7 @@ public class LoginActivity extends OrmLiteBaseActivity<DatabaseHelper>{
 	 * Once the user logs out, the shared preference will get reset to false.
 	 * This makes sure that the user wont be redirected to home screen when he logs in again
 	 * @param context
-	 * @author Rohan
+	 * @author Rohan / Ameya
 	 */
 	public void logout(Context context){
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);

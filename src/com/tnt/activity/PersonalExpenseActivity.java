@@ -3,6 +3,7 @@ package com.tnt.activity;
 import java.util.Calendar;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
@@ -38,7 +39,7 @@ public class PersonalExpenseActivity extends Activity {
 	
 	/**
 	 * resets the entire layout
-	 * @author Rohan
+	 * @author Rohan / Ameya
 	 */
 	public void onResetClick(View view){
 		transactionName.setText("");
@@ -50,8 +51,17 @@ public class PersonalExpenseActivity extends Activity {
 	
 	/**
 	 * persist all the details on click of done button
-	 * @author Rohan
+	 * @author Rohan / Ameya
 	 */
 	public void onDoneClick(){
+	}
+	
+	/**
+	 * this method should open a new activity is used to add a transaction type
+	 * @author Rohan / Ameya
+	 */
+	public void onAddTypeClick(){
+	 Intent redirectToAddType = new Intent(this, AddTypeActivity.class);
+	 startActivity(redirectToAddType);
 	}
 }

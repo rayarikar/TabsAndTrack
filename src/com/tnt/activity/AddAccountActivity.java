@@ -15,9 +15,7 @@ import com.tnt.entity.UserDetails;
 
 /**
  * This class adds the user details and account into the database using DAOs.
- * 
  * @author Rohan
- * 
  */
 public class AddAccountActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
@@ -45,7 +43,7 @@ public class AddAccountActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	}
 
 	/**
-	 * @author Rohan
+	 * @author Rohan / Ameya
 	 * @param view
 	 */
 	public void onDoneClick(View view) {
@@ -67,8 +65,7 @@ public class AddAccountActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	/**
 	 * persists all the details into UserDetails table
-	 * 
-	 * @author Rohan
+	 * @author Rohan / Ameya
 	 * 
 	 */
 	private void persistIntoUserDetails() {
@@ -84,9 +81,8 @@ public class AddAccountActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	}
 
 	/**
-	 * persists all the details into Account table
-	 * 
-	 * @author Rohan
+	 * persists all the details into Account table 
+	 * @author Rohan / Ameya
 	 * 
 	 */
 	private void persistIntoAccount() {

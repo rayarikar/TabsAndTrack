@@ -5,6 +5,9 @@ import java.util.Calendar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -37,6 +40,27 @@ public class PersonalExpenseActivity extends Activity {
 		accountName = ((Spinner) findViewById(R.id.accountType));
 	}
 	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.home, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle presses on the action bar items
+		switch (item.getItemId()) {
+		case R.id.logout:
+			LoginActivity loginActivityObj = new LoginActivity();
+			loginActivityObj.logout(this);
+			finish();
+			startActivity(new Intent(this, LoginActivity.class));
+			break;
+		}
+		return true;
+	}
+	
 	/**
 	 * resets the entire layout
 	 * @author Rohan / Ameya
@@ -53,14 +77,14 @@ public class PersonalExpenseActivity extends Activity {
 	 * persist all the details on click of done button
 	 * @author Rohan / Ameya
 	 */
-	public void onDoneClick(){
+	public void onDoneClick(View view){
 	}
 	
 	/**
 	 * this method should open a new activity is used to add a transaction type
 	 * @author Rohan / Ameya
 	 */
-	public void onAddTypeClick(){
+	public void onAddTypeClick(View view){
 	 Intent redirectToAddType = new Intent(this, AddTypeActivity.class);
 	 startActivity(redirectToAddType);
 	}

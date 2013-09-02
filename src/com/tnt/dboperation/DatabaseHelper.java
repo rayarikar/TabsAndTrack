@@ -12,6 +12,7 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.tnt.R;
 import com.tnt.entity.Account;
+import com.tnt.entity.TransactionType;
 import com.tnt.entity.UserDetails;
 
 /**
@@ -30,6 +31,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	// the DAO object we use to access the UserDetails table
 	private RuntimeExceptionDao<UserDetails, Integer> userDetailsRuntimeDao = null;
 	private RuntimeExceptionDao<Account, Integer> accountRuntimeDao = null;
+	private RuntimeExceptionDao<TransactionType, Integer> transactionTypeRuntimeDao = null;
 
 	public DatabaseHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION,
@@ -93,6 +95,17 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			accountRuntimeDao = getRuntimeExceptionDao(Account.class);
 		}
 		return accountRuntimeDao;
+	}
+	
+	/**
+	 * Returns the Database Access Object (DAO) for our TransactionType class. It
+	 * will create it or just give the cached value.
+	 */
+	public RuntimeExceptionDao<TransactionType, Integer> getTransactionTypeDao() throws SQLException {
+		if (transactionTypeRuntimeDao == null) {
+			transactionTypeRuntimeDao = getRuntimeExceptionDao(TransactionType.class);
+		}
+		return transactionTypeRuntimeDao;
 	}
 
 	/**

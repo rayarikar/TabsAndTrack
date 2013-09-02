@@ -42,7 +42,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="10dp"
                 android:hint="@string/doneButton"
-                android:onClick="onSignUp" />
+                android:onClick="onDoneClick" />
     </LinearLayout>
 
 </ScrollView>

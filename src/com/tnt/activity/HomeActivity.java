@@ -1,13 +1,14 @@
 package com.tnt.activity;
 
-import java.util.List;
-
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 
-import com.example.tabsandtrack.R;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.tnt.R;
 import com.tnt.dboperation.DatabaseHelper;
 import com.tnt.entity.UserDetails;
 
@@ -18,21 +19,32 @@ public class HomeActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		TextView tv = new TextView(this);
-		// gets the userDetails object
-		userDetails = (UserDetails) getIntent().getExtras().get("com.tnt.activity.userObj");
-		
-		StringBuilder sb = new StringBuilder();
-		sb.append("\n");
-		sb.append("User Id:   ").append(userDetails.getUserId());
-		sb.append("\n");
-		sb.append("User Name:   ").append(userDetails.getUsername());
-		sb.append("\n");
-		sb.append("Password:   ").append(userDetails.getPassword());
-		tv.setText(sb);
-		
-		setContentView(tv);
-		//		setContentView(R.layout.activity_home);
+		setContentView(R.layout.activity_home);
+	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.home, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle presses on the action bar items
+		switch (item.getItemId()) {
+		case R.id.logout:
+			LoginActivity loginActivityObj = new LoginActivity();
+			loginActivityObj.logout(this);
+			finish();
+			startActivity(new Intent(this, LoginActivity.class));
+			break;
+		}
+		return true;
+	}
+
+	public void onPersonalExpenseClick(View view) {
+		Intent personalExpenseIntent = new Intent(this, PersonalExpenseActivity.class);	
+		startActivity(personalExpenseIntent);
 	}
 }

@@ -7,11 +7,14 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_sign_up">SignUpActivity</string>
     <string name="title_activity_add_account">AddAccountActivity</string>
+       <string name="title_activity_home">HomeActivity</string>
 
     <!-- global -->
     <string name="nextButton">Next</string>
     <string name="cancelButton">Cancel</string>
     <string name="doneButton">Done</string>
+    <string name="resetButton">Reset</string>
+    <string name= "logout">Logout</string>
 
     <!-- activity_login -->
     <string name="usernameHint">Username</string>
@@ -32,5 +35,27 @@
     <string name="accountLimitHint">Account Limit</string>
     <string name="addMoreAccountsHint">Add More Accounts</string>
     <string name="title_activity_user_details_db_operations">UserDetailsDbOperations</string>
+
+    <!-- activity_home -->
+    <string name="personalExpenseButton">Personal Expenses</string>
+    <string name="groupExpenseButton">Group Expenses</string>
+
+    <!-- activity_personal_expense -->
+    <string name="title_activity_personal_expense">PersonalExpenseActivity</string>
+    <string name="transactionHint">Transaction Name</string>
+    <string name="amountHint">Amount</string>
+    <string name="addTypeHint">Add Type</string>
+    <string name="dateLabelHint">Select Date</string>
+
+    <string-array name="array_transaction_type">
+        <item>- Select -</item>
+        <item>Grocery</item>
+        <item>Rent</item>
+        <item>This big text is for testing</item>
+    </string-array>
+    
+    <string-array name="array_account_type">
+        <item>   -Select-   </item>
+    </string-array>
 
 </resources>

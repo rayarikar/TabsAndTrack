@@ -1,17 +1,13 @@
 package com.tnt.activity;
 
-import com.example.tabsandtrack.R;
-import com.example.tabsandtrack.R.layout;
-import com.example.tabsandtrack.R.menu;
-import com.tnt.entity.UserDetails;
-
-import android.os.Bundle;
-import android.provider.UserDictionary;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+
+import com.tnt.R;
+import com.tnt.entity.UserDetails;
 
 public class SignUpActivity extends Activity {
 

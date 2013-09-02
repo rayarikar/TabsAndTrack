@@ -1,57 +1,60 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".LoginActivity" 
-    android:orientation="vertical"
-    android:scrollbars="vertical">
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
 
-    <EditText
-        android:id="@+id/userName"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName" 
-        android:hint="@string/usernameHint"
-        android:layout_margin="10dp">
+        android:orientation="vertical"
+        tools:context=".LoginActivity" >
 
-    </EditText>
+        <EditText
+            android:id="@+id/userName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:ems="10"
+            android:hint="@string/usernameHint"
+            android:inputType="textPersonName" >
+        </EditText>
 
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword" 
-        android:hint="@string/passwordHint"
-        android:layout_margin="10dp"/>
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:ems="10"
+            android:hint="@string/passwordHint"
+            android:inputType="textPassword" />
 
-    <CheckBox
-        android:id="@+id/rememberMe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-        android:hint="@string/rememberMeText"
-        android:layout_margin="10dp"
-        android:layout_gravity="center_horizontal"/>
+        <CheckBox
+            android:id="@+id/rememberMe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:hint="@string/rememberMeText" />
 
-    <Button
-        android:id="@+id/signIn"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content" 
-        android:hint="@string/signInButton"
-        android:layout_margin="10dp"
-        android:layout_gravity="center_horizontal"
-        android:onClick="onSignInClick"/>
+        <Button
+            android:id="@+id/signIn"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:hint="@string/signInButton"
+            android:onClick="onSignInClick" />
 
-    <Button
-        android:id="@+id/signUp"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content" 
-        android:hint="@string/signUpButton"
-        android:layout_margin="10dp"
-        android:layout_gravity="center_horizontal"
-        android:onClick="onSignUp"/>
-    
-</LinearLayout>
+        <Button
+            android:id="@+id/signUp"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:hint="@string/signUpButton"
+            android:onClick="onSignUp" />
+    </LinearLayout>
+
+</ScrollView>

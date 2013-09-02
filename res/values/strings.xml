@@ -51,6 +51,7 @@
     <string name="title_activity_add_type">AddTypeActivity</string>
     <string name="typeNameHint">Type Name</string>
     <string name="addMoreTypesHint">Add More</string>
+    <string name="deleteButtonHint">Delete</string>
 
     <string-array name="array_transaction_type">
         <item>- Select Type -</item>

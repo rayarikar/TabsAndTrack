@@ -1,0 +1,70 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:context=".EditTypeActivity" >
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <EditText
+                    android:id="@+id/typeName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.70"
+                    android:layout_margin="10dp"
+                    android:ems="10"
+                    android:hint="@string/typeNameHint"
+                    android:inputType="textPersonName" >
+            </EditText>
+
+            <Button
+                    android:id="@+id/addTypeButton"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.30"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10dp"
+                    android:hint="@string/addTypeHint"
+                    android:onClick="onSignUp" />
+        </LinearLayout>
+
+
+        <TextView
+                android:id="@+id/showTypes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:ems="10"/>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:orientation="horizontal">
+            <Button
+                    android:id="@+id/deleteButton"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:hint="@string/deleteButtonHint"
+                    android:onClick="onSignUp" />
+
+            <Button
+                    android:id="@+id/doneButton"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:hint="@string/doneButton"
+                    android:onClick="onSignUp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

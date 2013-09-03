@@ -1,5 +1,5 @@
 #
-# generated on 2013/09/02 06:09:25
+# generated on 2013/09/02 07:21:48
 #
 # --table-start--
 dataClass=com.tnt.entity.Account
@@ -19,26 +19,6 @@ fieldName=accountLimit
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.tnt.entity.Login
-tableName=login
-# --table-fields-start--
-# --field-start--
-fieldName=loginId
-generatedId=true
-# --field-end--
-# --field-start--
-fieldName=loginUserName
-# --field-end--
-# --field-start--
-fieldName=loginPassword
-# --field-end--
-# --field-start--
-fieldName=isRememberChecked
-# --field-end--
-# --table-fields-end--
-# --table-end--
-#################################
-# --table-start--
 dataClass=com.tnt.entity.TransactionType
 tableName=transactiontype
 # --table-fields-start--
@@ -47,7 +27,7 @@ fieldName=transactionTypeId
 generatedId=true
 # --field-end--
 # --field-start--
-fieldName=transactionType
+fieldName=transactionTypeName
 # --field-end--
 # --table-fields-end--
 # --table-end--

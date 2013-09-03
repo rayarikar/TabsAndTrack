@@ -86,6 +86,7 @@ public class PersonalExpenseActivity extends Activity {
 	 */
 	public void onAddTypeClick(View view){
 	 Intent redirectToAddType = new Intent(this, AddTypeActivity.class);
+	 redirectToAddType.putExtra("activityName", "PersonalExpenseAddTypeActivity");
 	 startActivity(redirectToAddType);
 	}
 }

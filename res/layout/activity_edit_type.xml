@@ -13,7 +13,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
             <EditText
-                    android:id="@+id/typeName"
+                    android:id="@+id/editTypeName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.70"
@@ -32,12 +32,13 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="10dp"
                     android:hint="@string/addTypeHint"
-                    android:onClick="onSignUp" />
+                    android:onClick="onAddTypeClick" />
         </LinearLayout>
 
 
-        <TextView
-                android:id="@+id/showTypes"
+        <LinearLayout
+                android:id="@+id/editTypes"
+                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -54,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:hint="@string/deleteButtonHint"
-                    android:onClick="onSignUp" />
+                    android:onClick="onDeleteClick" />
 
             <Button
                     android:id="@+id/doneButton"
@@ -63,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:hint="@string/doneButton"
-                    android:onClick="onSignUp"/>
+                    android:onClick="onDoneClick"/>
         </LinearLayout>
     </LinearLayout>
 

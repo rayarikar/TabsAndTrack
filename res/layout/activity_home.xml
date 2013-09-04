@@ -28,6 +28,16 @@
             android:layout_margin="10dp"
             android:hint="@string/groupExpenseButton"
             android:onClick="onGroupExpenseClick" />
+
+        <Button
+                android:id="@+id/editTypesBtn"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:hint="Edit Types"
+                android:onClick="onEditTypesClick" />
         
     </LinearLayout>
 

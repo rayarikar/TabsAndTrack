@@ -47,4 +47,10 @@ public class HomeActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		Intent personalExpenseIntent = new Intent(this, PersonalExpenseActivity.class);	
 		startActivity(personalExpenseIntent);
 	}
+
+    public void onEditTypesClick(View view) {
+        Intent editTypesIntent = new Intent(this, EditTypeActivity.class);
+        startActivity(editTypesIntent);
+    }
+
 }

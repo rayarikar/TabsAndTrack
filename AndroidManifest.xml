@@ -35,10 +35,6 @@
             android:label="@string/title_activity_add_account" >
         </activity>
         <activity
-            android:name="com.tnt.dboperation.UserDetailsDbOperations"
-            android:label="@string/title_activity_user_details_db_operations" >
-        </activity>
-        <activity
             android:name="com.tnt.activity.PersonalExpenseActivity"
             android:label="@string/title_activity_personal_expense" >
         </activity>
@@ -46,6 +42,11 @@
             android:name="com.tnt.activity.AddTypeActivity"
             android:label="@string/title_activity_add_type" >
         </activity>
+        <activity
+                android:name="com.tnt.activity.EditTypeActivity"
+                android:label="@string/title_activity_edit_type" >
+        </activity>
+
     </application>
 
 </manifest>

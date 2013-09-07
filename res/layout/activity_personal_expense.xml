@@ -30,8 +30,7 @@
                 android:layout_gravity="left"
                 android:layout_weight = "0.70"
                 android:layout_margin="10dp"
-                android:ems="10"
-                android:entries="@array/array_transaction_type" />
+                android:ems="10"/>
 
             <Button
                 android:id="@+id/addType"

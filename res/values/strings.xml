@@ -53,14 +53,7 @@
     <string name="typeNameHint">Type Name</string>
     <string name="addMoreTypesHint">Add More</string>
     <string name="deleteButtonHint">Delete</string>
-
-    <string-array name="array_transaction_type">
-        <item>- Select Type -</item>
-        <item>Grocery</item>
-        <item>Rent</item>
-        <item>This big text is for testing</item>
-    </string-array>
-    
+       
     <string-array name="array_account_type">
         <item>- Select Account -</item>
     </string-array>

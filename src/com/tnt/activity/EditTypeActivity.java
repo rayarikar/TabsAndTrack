@@ -13,7 +13,13 @@ import android.content.Intent;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * TODO There are many cases where finish() is not called.  Ameya, make sure the finish() method is called.
+ * 		Also please comment where-ever necessary along with the method comments. This is to make sure that 
+ * 		any of us who reads your code will understand it
+ * @author Ameya
+ *
+ */
 public class EditTypeActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
     private RuntimeExceptionDao<TransactionType,Integer> transactionTypeDao;

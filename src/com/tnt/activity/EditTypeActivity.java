@@ -36,15 +36,19 @@ public class EditTypeActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
     public void onAddTypeClick(View view)
     {
-        // Fetch the type name
-        EditText editText = (EditText)findViewById(R.id.editTypeName);
-        String typeName = editText.getText().toString();
+    	// Fetch the type name
+    	EditText editText = (EditText)findViewById(R.id.editTypeName);
+    	String typeName = editText.getText().toString();
 
-        // Save it in db
-        saveType(typeName);
+    	// clear the text box
+    	editText.setText("");
 
-        // Render the view
-        addListToView();
+
+    	// TODO - Ameya just check for the condition commented below
+    	// Save it in db and add show the view if its not empty or not null
+    	saveType(typeName);
+    	// Render the view
+    	addListToView();
     }
 
     public void onDeleteClick(View view)

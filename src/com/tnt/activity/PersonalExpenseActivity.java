@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,8 +19,8 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.tnt.R;
 import com.tnt.dboperation.DatabaseHelper;
+import com.tnt.entity.Account;
 import com.tnt.entity.TransactionType;
-import com.tnt.utility.ExpenseUtility;
 
 public class PersonalExpenseActivity extends
 		OrmLiteBaseActivity<DatabaseHelper> {
@@ -33,6 +32,7 @@ public class PersonalExpenseActivity extends
 	private Spinner accountNameSpinner;
 
 	private RuntimeExceptionDao<TransactionType, Integer> transactionTypeDao;
+	private RuntimeExceptionDao<Account, Integer> accountDao;
 
 	final Calendar c = Calendar.getInstance();
 	int year = c.get(Calendar.YEAR);
@@ -42,8 +42,10 @@ public class PersonalExpenseActivity extends
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		// initializing all Doas
 		try {
 			transactionTypeDao = getHelper().getTransactionTypeDao();
+			accountDao = getHelper().getAccountDao();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -53,8 +55,9 @@ public class PersonalExpenseActivity extends
 		transactionDate = ((DatePicker) findViewById(R.id.datePicker));
 		trasactionAmount = ((EditText) findViewById(R.id.amount));
 		accountNameSpinner = ((Spinner) findViewById(R.id.accountType));
-		
+		// populates all the spinners
 		loadTransactionTypeSpinnerData();
+		loadAccountsSpinnerData();
 	}
 
 	@Override
@@ -118,21 +121,13 @@ public class PersonalExpenseActivity extends
 	private void loadTransactionTypeSpinnerData() {
 		// Spinner Drop down elements
 		List<String> transactionTypeNames = new ArrayList<String>();
-		
-		// get all the default transaction types
-		List<String> defaultTransactionTypeData = ExpenseUtility.getTransactionTypeSpinnerDefault();
-		// add the defaults to the list
-		for (String transTypeName : defaultTransactionTypeData){
-			transactionTypeNames.add(transTypeName);
-		}
-		
-		// then add the rest of the data
+		// then add the data
 		List<TransactionType> transactionTypeAllDetails = transactionTypeDao
 				.queryForAll();
 		String transType = null;
 		for (TransactionType transactionType : transactionTypeAllDetails) {
 			transType = transactionType.getTransactionType().toString();
-			if (transType != null || !transType.equalsIgnoreCase("")) {
+			if (!transType.equalsIgnoreCase("") || transType != null) {
 				transactionTypeNames.add(transType);
 			}
 		}
@@ -146,5 +141,34 @@ public class PersonalExpenseActivity extends
 
 		// attaching data adapter to spinner
 		transactionTypeSpinner.setAdapter(transactionTypeDataAdapter);
+	}
+	
+	
+	/**
+	 * loads the spinner data from SQLite database for accounts
+	 * @author Rohan
+	 */
+	private void loadAccountsSpinnerData() {
+		// Spinner Drop down elements
+		List<String> accountNames = new ArrayList<String>();
+		// then add the data
+		List<Account> accountAllDetails = accountDao.queryForAll();
+		String accountName = null;
+		for (Account accName : accountAllDetails) {
+			accountName = accName.getAccountName().toString();
+			if (!accountName.equalsIgnoreCase("") || accountName != null) {
+				accountNames.add(accountName);
+			}
+		}
+		// Creating adapter for spinner
+		ArrayAdapter<String> accountNameAdapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_dropdown_item, accountNames);
+
+		// Drop down layout style - list view with radio button
+		accountNameAdapter
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+		// attaching data adapter to spinner
+		accountNameSpinner.setAdapter(accountNameAdapter);
 	}
 }

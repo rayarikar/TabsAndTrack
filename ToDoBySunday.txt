@@ -1,0 +1,10 @@
+Ameya
+1- View Transactions Table
+2- add friends (ditto like add types)
+table name: contacts
+attributes: contactId and contactName
+
+Rohan
+1- Group Expense activity (all except done)
+2- accounts activity add more accounts
+3- remove select from db. handle it at front end

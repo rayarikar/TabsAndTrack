@@ -1,6 +1,7 @@
 package com.tnt.dboperation;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,6 +15,7 @@ import com.tnt.R;
 import com.tnt.entity.Account;
 import com.tnt.entity.TransactionType;
 import com.tnt.entity.UserDetails;
+import com.tnt.utility.ExpenseUtility;
 
 /**
  * Database helper class used to manage the creation and upgrading of your
@@ -51,9 +53,53 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(connectionSource, Account.class);
 			TableUtils.createTable(connectionSource, TransactionType.class);
 			
+			// add default values in Transaction and Account tables
+			addDefaultTransactionTypesToDb();
+			addAccountNamesToDb();
+			
+
 		} catch (SQLException e) {
 			Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
 			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * Adds the default values for Transaction table
+	 */
+	private void addDefaultTransactionTypesToDb() {
+		try {
+			transactionTypeRuntimeDao = getTransactionTypeDao();
+
+			List<TransactionType> transactionTypes = ExpenseUtility
+					.getTransactionTypeSpinnerDefault();
+
+			for (TransactionType transactionType : transactionTypes) {
+				transactionTypeRuntimeDao.create(transactionType);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Adds the default values for Account table
+	 */
+	private void addAccountNamesToDb() {
+		try {
+			accountRuntimeDao = getAccountDao();
+
+			List<Account> accountNames = ExpenseUtility.getAccountNameSpinnerDefault();
+
+			for (Account accountName : accountNames) {
+				accountRuntimeDao.create(accountName);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -82,29 +128,32 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	 * Returns the Database Access Object (DAO) for our UserDetails class. It
 	 * will create it or just give the cached value.
 	 */
-	public RuntimeExceptionDao<UserDetails, Integer> getUserDetailsDao() throws SQLException {
+	public RuntimeExceptionDao<UserDetails, Integer> getUserDetailsDao()
+			throws SQLException {
 		if (userDetailsRuntimeDao == null) {
 			userDetailsRuntimeDao = getRuntimeExceptionDao(UserDetails.class);
 		}
 		return userDetailsRuntimeDao;
 	}
-	
+
 	/**
-	 * Returns the Database Access Object (DAO) for our Account class. It
-	 * will create it or just give the cached value.
+	 * Returns the Database Access Object (DAO) for our Account class. It will
+	 * create it or just give the cached value.
 	 */
-	public RuntimeExceptionDao<Account, Integer> getAccountDao() throws SQLException {
+	public RuntimeExceptionDao<Account, Integer> getAccountDao()
+			throws SQLException {
 		if (accountRuntimeDao == null) {
 			accountRuntimeDao = getRuntimeExceptionDao(Account.class);
 		}
 		return accountRuntimeDao;
 	}
-	
+
 	/**
-	 * Returns the Database Access Object (DAO) for our TransactionType class. It
-	 * will create it or just give the cached value.
+	 * Returns the Database Access Object (DAO) for our TransactionType class.
+	 * It will create it or just give the cached value.
 	 */
-	public RuntimeExceptionDao<TransactionType, Integer> getTransactionTypeDao() throws SQLException {
+	public RuntimeExceptionDao<TransactionType, Integer> getTransactionTypeDao()
+			throws SQLException {
 		if (transactionTypeRuntimeDao == null) {
 			transactionTypeRuntimeDao = getRuntimeExceptionDao(TransactionType.class);
 		}

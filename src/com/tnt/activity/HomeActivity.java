@@ -53,4 +53,8 @@ public class HomeActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         startActivity(editTypesIntent);
     }
 
+    public void onAddContactsClick(View view) {
+        Intent addContactsIntent = new Intent(this, AddContactActivity.class);
+        startActivity(addContactsIntent);
+    }
 }

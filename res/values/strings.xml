@@ -53,6 +53,11 @@
     <string name="typeNameHint">Type Name</string>
     <string name="addMoreTypesHint">Add More</string>
     <string name="deleteButtonHint">Delete</string>
+
+    <!-- activity_add_contact -->
+    <string name="title_activity_add_contact">AddContactActivity</string>
+    <string name="contactNameHint">Contact Name</string>
+    <string name="addMoreContactsHint">Add More</string>
        
     <string-array name="array_account_type">
         <item>- Select Account -</item>

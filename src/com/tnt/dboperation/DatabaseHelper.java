@@ -9,10 +9,12 @@ import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.j256.ormlite.stmt.query.In;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.tnt.R;
 import com.tnt.entity.Account;
+import com.tnt.entity.Contact;
 import com.tnt.entity.TransactionType;
 import com.tnt.entity.UserDetails;
 import com.tnt.utility.ExpenseUtility;
@@ -34,6 +36,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	private RuntimeExceptionDao<UserDetails, Integer> userDetailsRuntimeDao = null;
 	private RuntimeExceptionDao<Account, Integer> accountRuntimeDao = null;
 	private RuntimeExceptionDao<TransactionType, Integer> transactionTypeRuntimeDao = null;
+    private RuntimeExceptionDao<Contact, Integer> contactRuntimeExceptionDao = null;
 
 	public DatabaseHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION,
@@ -52,7 +55,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(connectionSource, UserDetails.class);
 			TableUtils.createTable(connectionSource, Account.class);
 			TableUtils.createTable(connectionSource, TransactionType.class);
-			
+			TableUtils.createTable(connectionSource, Contact.class);
+
 			// add default values in Transaction and Account tables
 			addDefaultTransactionTypesToDb();
 			addAccountNamesToDb();
@@ -116,6 +120,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.dropTable(connectionSource, UserDetails.class, true);
 			TableUtils.dropTable(connectionSource, Account.class, true);
 			TableUtils.dropTable(connectionSource, TransactionType.class, true);
+            TableUtils.dropTable(connectionSource, Contact.class, true);
 			// after we drop the old databases, we create the new ones
 			onCreate(db, connectionSource);
 		} catch (SQLException e) {
@@ -160,6 +165,18 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		return transactionTypeRuntimeDao;
 	}
 
+    /**
+     * Returns the Database Access Object (DAO) for our Contact class.
+     * It will create it or just give the cached value.
+     */
+    public RuntimeExceptionDao<Contact, Integer> getContactDao()
+            throws SQLException {
+        if (contactRuntimeExceptionDao == null) {
+            contactRuntimeExceptionDao = getRuntimeExceptionDao(Contact.class);
+        }
+        return contactRuntimeExceptionDao;
+    }
+
 	/**
 	 * Close the database connections and clear any cached DAOs.
 	 */
@@ -169,5 +186,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		userDetailsRuntimeDao = null;
 		accountRuntimeDao = null;
 		transactionTypeRuntimeDao = null;
+        contactRuntimeExceptionDao  = null;
 	}
 }

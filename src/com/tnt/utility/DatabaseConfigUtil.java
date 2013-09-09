@@ -2,6 +2,7 @@ package com.tnt.utility;
 
 import com.j256.ormlite.android.apptools.OrmLiteConfigUtil;
 import com.tnt.entity.Account;
+import com.tnt.entity.Contact;
 import com.tnt.entity.TransactionType;
 import com.tnt.entity.UserDetails;
 
@@ -10,6 +11,7 @@ public class DatabaseConfigUtil extends OrmLiteConfigUtil {
 		UserDetails.class,
 		Account.class,
 		TransactionType.class,
+        Contact.class,
 	};
 	public static void main(String[] args) throws Exception {
 		writeConfigFile("ormlite_config.txt");

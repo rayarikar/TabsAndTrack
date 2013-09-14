@@ -21,6 +21,7 @@ import com.tnt.R;
 import com.tnt.dboperation.DatabaseHelper;
 import com.tnt.entity.Account;
 import com.tnt.entity.TransactionType;
+import com.tnt.utility.ExpenseUtility;
 
 public class PersonalExpenseActivity extends
 		OrmLiteBaseActivity<DatabaseHelper> {
@@ -100,6 +101,8 @@ public class PersonalExpenseActivity extends
 	 * @author Rohan / Ameya
 	 */
 	public void onDoneClick(View view) {
+		// check whether select is selected from the spinner drop downs. If yes then
+		// give out a toast else persist the data
 	}
 
 	/**
@@ -121,6 +124,9 @@ public class PersonalExpenseActivity extends
 	private void loadTransactionTypeSpinnerData() {
 		// Spinner Drop down elements
 		List<String> transactionTypeNames = new ArrayList<String>();
+		// always populate it with default select
+		transactionTypeNames.add(ExpenseUtility.selectFromList);
+		
 		// then add the data
 		List<TransactionType> transactionTypeAllDetails = transactionTypeDao
 				.queryForAll();
@@ -151,6 +157,9 @@ public class PersonalExpenseActivity extends
 	private void loadAccountsSpinnerData() {
 		// Spinner Drop down elements
 		List<String> accountNames = new ArrayList<String>();
+		// populate with default select word
+		accountNames.add(ExpenseUtility.selectFromList);
+		
 		// then add the data
 		List<Account> accountAllDetails = accountDao.queryForAll();
 		String accountName = null;

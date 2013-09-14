@@ -59,7 +59,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 			// add default values in Transaction and Account tables
 			addDefaultTransactionTypesToDb();
-			addAccountNamesToDb();
+//			addAccountNamesToDb();
 			
 
 		} catch (SQLException e) {
@@ -88,24 +88,24 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		}
 	}
 	
-	/**
-	 * Adds the default values for Account table
-	 */
-	private void addAccountNamesToDb() {
-		try {
-			accountRuntimeDao = getAccountDao();
-
-			List<Account> accountNames = ExpenseUtility.getAccountNameSpinnerDefault();
-
-			for (Account accountName : accountNames) {
-				accountRuntimeDao.create(accountName);
-			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	/**
+//	 * Adds the default values for Account table
+//	 */
+//	private void addAccountNamesToDb() {
+//		try {
+//			accountRuntimeDao = getAccountDao();
+//
+//			List<Account> accountNames = ExpenseUtility.getAccountNameSpinnerDefault();
+//
+//			for (Account accountName : accountNames) {
+//				accountRuntimeDao.create(accountName);
+//			}
+//
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * This is called when your application is upgraded and it has a higher

@@ -14,8 +14,8 @@ import com.tnt.entity.TransactionType;
  */
 public class ExpenseUtility {
 
-	public static String selectTransactionFromList = "- Transaction Type-";
-	public static String selectAccountFromList = "- Account-";
+	public static String selectTransactionFromList = " -Transaction Type-";
+	public static String selectAccountFromList = " -Select Account-";
 	
 	/**
 	 * This method returns all the defaults of the transactionType dropdown list

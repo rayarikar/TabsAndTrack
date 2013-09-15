@@ -9,6 +9,7 @@
     <string name="title_activity_add_account">AddAccountActivity</string>
     <string name="title_activity_edit_type">AddAccountActivity</string>
     <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_group_expense">GroupExpenseActivity</string>
 
     <!-- global -->
     <string name="nextButton">Next</string>
@@ -59,10 +60,10 @@
     <string name="contactNameHint">Contact Name</string>
     <string name="addMoreContactsHint">Add More</string>
 
-    <string-array name="array_account_type">
-        <item>- Select Account -</item>
-    </string-array>
+    <!-- activity_group_expense -->
+    <string name="splitEqually">Equally</string>
+    <string name="splitUnequally">Unequally</string>
+    <string name="splitAmountHint">Split amount:</string>
 
-    <string name="title_activity_group_expense">GroupExpenseActivity</string>
 
 </resources>

@@ -7,36 +7,36 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            tools:context=".EditTypeActivity" >
+            tools:context=".GroupExpenseSplitActivity" >
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
             <EditText
-                    android:id="@+id/editTypeName"
+                    android:id="@+id/GroupExpenseSplitContactName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.70"
                     android:layout_margin="10dp"
                     android:ems="10"
-                    android:hint="@string/typeNameHint"
+                    android:hint="@string/groupContactHint"
                     android:inputType="textPersonName" >
             </EditText>
 
             <Button
-                    android:id="@+id/addTypeButton"
+                    android:id="@+id/addContactButton"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.30"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="10dp"
-                    android:hint="@string/addTypeHint"
-                    android:onClick="onAddTypeClick" />
+                    android:hint="@string/addContactHint"
+                    android:onClick="onAddContactClick" />
         </LinearLayout>
 
 		<LinearLayout
-                android:id="@+id/editTypes"
+                android:id="@+id/groupExpenseSplit"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,13 +50,13 @@
                 android:gravity="right"
                 android:orientation="horizontal">
             <Button
-                    android:id="@+id/deleteButton"
+                    android:id="@+id/cancelButton"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:hint="@string/deleteButtonHint"
-                    android:onClick="onDeleteClick" />
+                    android:hint="@string/cancelButton"
+                    android:onClick="onCancelClick" />
 
             <Button
                     android:id="@+id/doneButton"

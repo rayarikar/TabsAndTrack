@@ -10,7 +10,7 @@
         tools:context=".GroupExpenseActivity" >
 
         <EditText
-            android:id="@+id/transactionName"
+            android:id="@+id/groupTransactionName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -24,7 +24,7 @@
             android:orientation="horizontal" >
 
             <Spinner
-                android:id="@+id/transactionType"
+                android:id="@+id/groupTransactionType"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
@@ -33,7 +33,7 @@
                 android:ems="10" />
 
             <Button
-                android:id="@+id/addType"
+                android:id="@+id/groupAddType"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -42,25 +42,24 @@
                 android:layout_weight="0.30"
                 android:ems="10"
                 android:hint="@string/addTypeHint"
-                android:onClick="onAddTypeClick" />
+                android:onClick="onGroupAddTypeClick" />
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/transactionDayLabel"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/groupTransactionDayLabel"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_margin="10dp"
             android:clickable="false"
-            android:cursorVisible="false"
             android:ems="10"
             android:focusable="false"
             android:focusableInTouchMode="false"
+            android:textSize="18sp"
             android:hint="@string/dateLabelHint" >
-        </EditText>
+        </TextView>
 
         <DatePicker
-            android:id="@+id/datePicker"
+            android:id="@+id/groupDatePicker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
@@ -69,7 +68,7 @@
             android:ems="10" />
 
         <EditText
-            android:id="@+id/amount"
+            android:id="@+id/groupAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -78,14 +77,15 @@
             android:inputType="numberDecimal" />
         
         <TextView 
-            android:id="@+id/splitAmountTextView"
+            android:id="@+id/groupSplitAmountTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:ems="10"
+            style="@android:style/TextAppearance.DeviceDefault.Medium"
             android:hint="@string/splitAmountHint"/>
 
             <RadioGroup
+                android:id="@+id/split_transaction_radio_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
@@ -93,21 +93,21 @@
                 android:orientation="vertical" >
 
                 <RadioButton
-                    android:id="@+id/split_unequally"
+                    android:id="@+id/split_unequally_radio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:text="@string/splitEqually" />
 
                 <RadioButton
-                    android:id="@+id/split_equally"
+                    android:id="@+id/split_equally_radio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/splitUnequally" />
             </RadioGroup>
     
         <Spinner
-            android:id="@+id/accountType"
+            android:id="@+id/groupAccountType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -121,7 +121,7 @@
             android:orientation="horizontal" >
 
             <Button
-                android:id="@+id/resetButton"
+                android:id="@+id/groupResetButton"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
@@ -131,13 +131,13 @@
                 android:onClick="onResetClick" />
 
             <Button
-                android:id="@+id/doneButton"
+                android:id="@+id/groupExpNextButton"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
-                android:hint="@string/doneButton"
-                android:onClick="onDoneClick" />
+                android:hint="@string/nextButton"
+                android:onClick="onNextClick" />
         </LinearLayout>
     </LinearLayout>
 

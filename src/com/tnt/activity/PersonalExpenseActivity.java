@@ -121,7 +121,7 @@ public class PersonalExpenseActivity extends
 	 * loads the spinner data from SQLite database
 	 * @author Rohan
 	 */
-	private void loadTransactionTypeSpinnerData() {
+	public void loadTransactionTypeSpinnerData() {
 		// Spinner Drop down elements
 		List<String> transactionTypeNames = new ArrayList<String>();
 		// always populate it with default select
@@ -154,7 +154,7 @@ public class PersonalExpenseActivity extends
 	 * loads the spinner data from SQLite database for accounts
 	 * @author Rohan
 	 */
-	private void loadAccountsSpinnerData() {
+	public void loadAccountsSpinnerData() {
 		// Spinner Drop down elements
 		List<String> accountNames = new ArrayList<String>();
 		// populate with default select word

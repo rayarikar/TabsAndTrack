@@ -54,6 +54,10 @@
             android:name="com.tnt.activity.GroupExpenseActivity"
             android:label="@string/title_activity_group_expense" >
         </activity>
+        <activity
+            android:name="com.tnt.activity.GroupExpenseSplitActivity"
+            android:label="@string/title_activity_group_expense_split" >
+        </activity>
     </application>
 
 </manifest>

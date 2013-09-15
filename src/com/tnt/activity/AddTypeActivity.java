@@ -110,6 +110,11 @@ public class AddTypeActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 				finish();
 				startActivity(redirectToPersonalExpensesActivity);
 			}
+			if (activityName.equalsIgnoreCase("GroupExpenseAddTypeActivity")){
+				Intent redirectToPersonalExpensesActivity = new Intent(this, GroupExpenseActivity.class);
+				finish();
+				startActivity(redirectToPersonalExpensesActivity);
+			}
 		}
 	}
 

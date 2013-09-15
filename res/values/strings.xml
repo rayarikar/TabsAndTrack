@@ -8,14 +8,14 @@
     <string name="title_activity_sign_up">SignUpActivity</string>
     <string name="title_activity_add_account">AddAccountActivity</string>
     <string name="title_activity_edit_type">AddAccountActivity</string>
-       <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_home">HomeActivity</string>
 
     <!-- global -->
     <string name="nextButton">Next</string>
     <string name="cancelButton">Cancel</string>
     <string name="doneButton">Done</string>
     <string name="resetButton">Reset</string>
-    <string name= "logout">Logout</string>
+    <string name="logout">Logout</string>
 
     <!-- activity_login -->
     <string name="usernameHint">Username</string>
@@ -58,9 +58,11 @@
     <string name="title_activity_add_contact">AddContactActivity</string>
     <string name="contactNameHint">Contact Name</string>
     <string name="addMoreContactsHint">Add More</string>
-       
+
     <string-array name="array_account_type">
         <item>- Select Account -</item>
     </string-array>
+
+    <string name="title_activity_group_expense">GroupExpenseActivity</string>
 
 </resources>

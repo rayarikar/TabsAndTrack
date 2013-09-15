@@ -125,7 +125,7 @@ public class PersonalExpenseActivity extends
 		// Spinner Drop down elements
 		List<String> transactionTypeNames = new ArrayList<String>();
 		// always populate it with default select
-		transactionTypeNames.add(ExpenseUtility.selectFromList);
+		transactionTypeNames.add(ExpenseUtility.selectTransactionFromList);
 		
 		// then add the data
 		List<TransactionType> transactionTypeAllDetails = transactionTypeDao
@@ -158,7 +158,7 @@ public class PersonalExpenseActivity extends
 		// Spinner Drop down elements
 		List<String> accountNames = new ArrayList<String>();
 		// populate with default select word
-		accountNames.add(ExpenseUtility.selectFromList);
+		accountNames.add(ExpenseUtility.selectAccountFromList);
 		
 		// then add the data
 		List<Account> accountAllDetails = accountDao.queryForAll();

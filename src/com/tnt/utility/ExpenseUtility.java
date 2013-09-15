@@ -30,5 +30,5 @@ public class ExpenseUtility {
 		transactionType2.setTransactionType("Rent");		
 		transactionTypes.add(transactionType2);
 		return transactionTypes;
-	}	
+	}
 }

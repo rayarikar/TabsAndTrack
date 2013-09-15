@@ -26,7 +26,7 @@
             android:layout_margin="10dp"
             android:ems="10"
             android:hint="@string/accountLimitHint"
-            android:inputType="text" />
+            android:inputType="number" />
 
         <CheckBox
             android:id="@+id/addMoreAccounts"

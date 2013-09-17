@@ -1,5 +1,5 @@
 #
-# generated on 2013/09/09 03:45:44
+# generated on 2013/09/16 09:26:43
 #
 # --table-start--
 dataClass=com.tnt.entity.Account
@@ -28,6 +28,55 @@ generatedId=true
 # --field-end--
 # --field-start--
 fieldName=contactName
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.tnt.entity.ContactTransaction
+tableName=contacttransaction
+# --table-fields-start--
+# --field-start--
+fieldName=contactTransactionId
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=transactionId
+# --field-end--
+# --field-start--
+fieldName=contactId
+# --field-end--
+# --field-start--
+fieldName=contactAmount
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.tnt.entity.Transaction
+tableName=transaction
+# --table-fields-start--
+# --field-start--
+fieldName=transactionId
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=accountId
+# --field-end--
+# --field-start--
+fieldName=transactionName
+# --field-end--
+# --field-start--
+fieldName=transactionTypeId
+# --field-end--
+# --field-start--
+fieldName=transactionDate
+# --field-end--
+# --field-start--
+fieldName=transactionTotalAmount
+# --field-end--
+# --field-start--
+fieldName=ExpenseType
 # --field-end--
 # --table-fields-end--
 # --table-end--

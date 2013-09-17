@@ -17,6 +17,13 @@ public class ExpenseUtility {
 	public static String selectTransactionFromList = " -Transaction Type-";
 	public static String selectAccountFromList = " -Select Account-";
 	
+	// variables for group expense radio
+	public static String groupExpenseRadioEqualsValue = "Equally";
+	public static String groupExpenseRadioUnequalsValue = "Unequally";
+	
+	public static String expenseTypePersonal = "Personal";
+	public static String expenseTypeGroup = "Group";
+	
 	/**
 	 * This method returns all the defaults of the transactionType dropdown list
 	 * @return

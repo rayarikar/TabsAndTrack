@@ -22,6 +22,7 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.tnt.R;
 import com.tnt.dboperation.DatabaseHelper;
 import com.tnt.entity.Account;
+import com.tnt.entity.Transaction;
 import com.tnt.entity.TransactionType;
 import com.tnt.utility.ExpenseUtility;
 import com.tnt.utility.Validation;
@@ -97,33 +98,65 @@ public class GroupExpenseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	public void onNextClick(View view) {
 		// check whether select is selected from the spinner drop downs. If yes then
 		// give out a toast else persist the data
-
-		String transactionName = groupTransactionName.getText().toString();
 		String transactionType = groupTransactionTypeSpinner.getSelectedItem().toString();
-		String transAmount = groupTrasactionAmount.getText().toString();
-		String transactionDate = groupTransactionDate.getDayOfMonth() + "/" + groupTransactionDate.getMonth() + "/" + groupTransactionDate.getYear();
-		String trasactionAccount = groupAccountNameSpinner.getSelectedItem().toString();
-		
-		// gets the id of selected radio button
-		int radioId=  groupSplitRadioChoice.getCheckedRadioButtonId();
-		String radioSelectedValue = ((RadioButton) findViewById(radioId)).getText().toString();
+		String trasactionAccount = groupAccountNameSpinner.getSelectedItem().toString();		
 
-		
-			/**
-			 * @TODO- 
-			 * pass all the values to the next activity!!
-			 */
-		
-		
-		// check whether the amount is valid. Then only proceed
-		if (Validation.isAmountValid(transAmount)){
-			// redirect to the contacts activity
-			Intent redirectToGrpExpSplitIntent = new Intent(this, GroupExpenseSplitActivity.class);
-			finish();
-			startActivity(redirectToGrpExpSplitIntent);
+		// if account or transaction type selected is not select word then only process
+		// else give out a toast
+		if (Validation.isValidAccountSelected(trasactionAccount) && Validation.isValidTransactionTypeSelected(transactionType)){
+
+			String transAmount = groupTrasactionAmount.getText().toString();
+			// check whether the amount is valid. Then only proceed
+			if (Validation.isAmountValid(transAmount)){
+
+			double transactionTotalAmount = Double.parseDouble(transAmount);	
+			String transactionName = groupTransactionName.getText().toString();
+			String transactionDate = groupTransactionDate.getDayOfMonth() + "/" + groupTransactionDate.getMonth() + "/" + groupTransactionDate.getYear();
+			// gets the id of selected radio button
+			int radioId=  groupSplitRadioChoice.getCheckedRadioButtonId();
+			String radioSelectedValue = ((RadioButton) findViewById(radioId)).getText().toString();
+
+			int accountId = 0;
+			int transactionTypeId = 0;
+			// get the accountId
+			List<Account> allAccounts = accountDao.queryForAll();
+			for (Account account : allAccounts){
+				if (account.getAccountName().equalsIgnoreCase(trasactionAccount)){
+					accountId = account.getAccountId();
+				}
+			}
+
+			// get the transactionId
+			List<TransactionType> allTransactionTypes = transactionTypeDao.queryForAll();
+			for (TransactionType transType : allTransactionTypes){
+				if (transType.getTransactionType().equalsIgnoreCase(transactionType)){
+					transactionTypeId = transType.getTransactionTypeId();
+				}
+			}
+				
+				// set the variables in Transaction class
+				Transaction groupTransaction = new Transaction();
+				groupTransaction.setAccountId(accountId);
+				groupTransaction.setTransactionName(transactionName);
+				groupTransaction.setTransactionTypeId(transactionTypeId);
+				groupTransaction.setTransactionDate(transactionDate);
+				groupTransaction.setTransactionTotalAmount(transactionTotalAmount);
+				groupTransaction.setExpenseType(ExpenseUtility.expenseTypeGroup);
+				
+				// redirect to the contacts activity
+				Intent redirectToGrpExpSplitIntent = new Intent(this, GroupExpenseSplitActivity.class);
+				// pass the transaction object and the string which indicates how to split the transaction
+				redirectToGrpExpSplitIntent.putExtra("TransactionObject", groupTransaction);
+				redirectToGrpExpSplitIntent.putExtra("RadioButtonValue", radioSelectedValue);
+				finish();
+				startActivity(redirectToGrpExpSplitIntent);
+			} else {
+				Toast invalidNumberToast = Toast.makeText(this, "Amount is not a  number", Toast.LENGTH_LONG);
+				invalidNumberToast.show();
+			}
 		} else {
-			Toast invalidLoginToast = Toast.makeText(this, "Amount is not a  number", Toast.LENGTH_LONG);
-			invalidLoginToast.show();
+			Toast invalidSelectToast = Toast.makeText(this, "Please select proper type and account.", Toast.LENGTH_LONG);
+			invalidSelectToast.show();
 		}
 
 	}

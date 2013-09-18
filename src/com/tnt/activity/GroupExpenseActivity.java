@@ -8,6 +8,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -75,8 +77,22 @@ public class GroupExpenseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.group_expense, menu);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.group_expense, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle presses on the action bar items
+		switch (item.getItemId()) {
+		case R.id.logout:
+			LoginActivity loginActivityObj = new LoginActivity();
+			loginActivityObj.logout(this);
+			finish();
+			startActivity(new Intent(this, LoginActivity.class));
+			break;
+		}
 		return true;
 	}
 
@@ -146,16 +162,17 @@ public class GroupExpenseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 				// redirect to the contacts activity
 				Intent redirectToGrpExpSplitIntent = new Intent(this, GroupExpenseSplitActivity.class);
 				// pass the transaction object and the string which indicates how to split the transaction
+				redirectToGrpExpSplitIntent.putExtra("CallingActivity", "GroupExpenseActivity");
 				redirectToGrpExpSplitIntent.putExtra("TransactionObject", groupTransaction);
 				redirectToGrpExpSplitIntent.putExtra("RadioButtonValue", radioSelectedValue);
 				finish();
 				startActivity(redirectToGrpExpSplitIntent);
 			} else {
-				Toast invalidNumberToast = Toast.makeText(this, "Amount is not a  number", Toast.LENGTH_LONG);
+				Toast invalidNumberToast = Toast.makeText(this, "Amount should be a valid number", Toast.LENGTH_LONG);
 				invalidNumberToast.show();
 			}
 		} else {
-			Toast invalidSelectToast = Toast.makeText(this, "Please select proper type and account.", Toast.LENGTH_LONG);
+			Toast invalidSelectToast = Toast.makeText(this, "Please select proper Transaction type and Account.", Toast.LENGTH_LONG);
 			invalidSelectToast.show();
 		}
 

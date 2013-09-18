@@ -13,7 +13,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
             <EditText
-                    android:id="@+id/GroupExpenseSplitContactName"
+                    android:id="@+id/groupExpenseSplitContactName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.70"
@@ -36,7 +36,7 @@
         </LinearLayout>
 
 		<LinearLayout
-                android:id="@+id/groupExpenseSplit"
+                android:id="@+id/groupExpenseSplitContactDisplay"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

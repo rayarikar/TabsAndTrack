@@ -64,7 +64,7 @@ public class PersonalExpenseActivity extends
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.home, menu);
+		inflater.inflate(R.menu.personal_expense, menu);
 		return true;
 	}
 

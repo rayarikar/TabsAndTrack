@@ -1,7 +1,5 @@
 package com.tnt.utility;
 
-import android.widget.Toast;
-
 public class Validation {
 
 	/**
@@ -47,5 +45,12 @@ public class Validation {
 		}
 		return true;
 	}
+
+    public static boolean isInputBlank(String input)
+    {
+        if(input.trim().equalsIgnoreCase("") || input == null)
+            return true;
+        return false;
+    }
 
 }

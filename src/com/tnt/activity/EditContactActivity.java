@@ -7,7 +7,7 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.tnt.R;
 import com.tnt.dboperation.DatabaseHelper;
-import com.tnt.entity.TransactionType;
+import com.tnt.entity.Contact;
 import android.content.Intent;
 import com.tnt.utility.Validation;
 
@@ -21,21 +21,21 @@ import java.util.List;
  * @author Ameya
  *
  */
-public class EditTypeActivity extends OrmLiteBaseActivity<DatabaseHelper> {
+public class EditContactActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
-    private RuntimeExceptionDao<TransactionType,Integer> transactionTypeDao;
-    private static final String DUPLICATE_TYPE_NAME_ERR = "This type name already exists! Please enter some other name.";
-    private static final String BLANK_CONTACT_NAME_ERR = "Transaction Type Name cannot be blank! Please enter some name.";
+    private RuntimeExceptionDao<Contact,Integer> contactDao;
+    private static final String DUPLICATE_CONTACT_NAME_ERR = "This name already exists! Please enter some other name.";
+    private static final String BLANK_CONTACT_NAME_ERR = "Contact Name cannot be blank! Please enter some name.";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try{
-            transactionTypeDao = getHelper().getTransactionTypeDao();
+            contactDao = getHelper().getContactDao();
         } catch(Exception e){
             e.printStackTrace();
         }
-        setContentView(R.layout.activity_edit_type);
+        setContentView(R.layout.activity_edit_contact);
 
         // Render the view
         addListToView();
@@ -43,43 +43,43 @@ public class EditTypeActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 
 
-    public void onAddTypeClick(View view)
+    public void onAddContactClick(View view)
     {
-    	// Fetch the type name
-    	EditText editText = (EditText)findViewById(R.id.editTypeName);
-    	String typeName = editText.getText().toString();
+    	// Fetch the contact name
+    	EditText editText = (EditText)findViewById(R.id.editContactName);
+    	String contactName = editText.getText().toString();
 
     	// clear the text box
     	editText.setText("");
 
-        if(Validation.isInputBlank(typeName))
+        if(Validation.isInputBlank(contactName))
         {
             Toast blankContactNameToast = Toast.makeText(this, BLANK_CONTACT_NAME_ERR, Toast.LENGTH_LONG);
             blankContactNameToast.show();
         }
         else
         {
-            if(!isTypeNameDuplicate(typeName))
+            if(!isContactNameDuplicate(contactName))
             {
-                saveType(typeName);
+                saveContact(contactName);
                 // Render the view
                 addListToView();
             }
             else
             {
-                Toast duplicateTypeNameToast = Toast.makeText(this, DUPLICATE_TYPE_NAME_ERR, Toast.LENGTH_LONG);
-                duplicateTypeNameToast.show();
+                Toast duplicateContactNameToast = Toast.makeText(this, DUPLICATE_CONTACT_NAME_ERR, Toast.LENGTH_LONG);
+                duplicateContactNameToast.show();
             }
         }
     }
 
-    private boolean isTypeNameDuplicate(String type)
+    private boolean isContactNameDuplicate(String contactName)
     {
-        List<TransactionType> types = getTypes();
+        List<Contact> contacts = getContacts();
 
-        for(TransactionType transType: types)
+        for(Contact contact: contacts)
         {
-            if(transType.getTransactionType().equalsIgnoreCase(type))
+            if(contact.getContactName().equalsIgnoreCase(contactName))
                 return true;
         }
 
@@ -92,7 +92,7 @@ public class EditTypeActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         List<Integer> ids = getSelectedCheckboxIds();
 
         // Delete these ids
-        deleteTypes(ids);
+        deleteContacts(ids);
 
         // Render the view
         addListToView();
@@ -108,7 +108,7 @@ public class EditTypeActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     private List<Integer> getSelectedCheckboxIds()
     {
 
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.editTypes);
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.editContacts);
         TableLayout tableLayout = (TableLayout) linearLayout.getChildAt(0);
         List<Integer> ids = new ArrayList<Integer>();
 
@@ -127,26 +127,26 @@ public class EditTypeActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         return ids;
     }
 
-    private void deleteTypes(List<Integer> typeIds)
+    private void deleteContacts(List<Integer> contactIds)
     {
-        transactionTypeDao.deleteIds(typeIds);
+        contactDao.deleteIds(contactIds);
     }
 
 
-    private void saveType(String typeName){
-        TransactionType transactionTypeObj = new TransactionType();
-        transactionTypeObj.setTransactionType(typeName);
+    private void saveContact(String contactName){
+        Contact contactObj = new Contact();
+        contactObj.setContactName(contactName);
 
         // persist into database
-        transactionTypeDao.create(transactionTypeObj);
+        contactDao.create(contactObj);
     }
 
     private void addListToView()
     {
-        LinearLayout linearLayout = (LinearLayout)findViewById(R.id.editTypes);
+        LinearLayout linearLayout = (LinearLayout)findViewById(R.id.editContacts);
 
-        List<TransactionType> types = getTypes();
-        View view = generateListViewForTypes(types);
+        List<Contact> contacts = getContacts();
+        View view = generateListViewForContacts(contacts);
 
         // Clear previous data
         linearLayout.removeAllViews();
@@ -155,30 +155,30 @@ public class EditTypeActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         linearLayout.addView(view);
     }
 
-    private List<TransactionType> getTypes()
+    private List<Contact> getContacts()
     {
-        List<TransactionType> types = transactionTypeDao.queryForAll();
+        List<Contact> contacts = contactDao.queryForAll();
 
-        return types;
+        return contacts;
     }
 
-    private View generateListViewForTypes(List<TransactionType> types)
+    private View generateListViewForContacts(List<Contact> contacts)
     {
         // Create the table layout
         TableLayout tableLayout = new TableLayout(this);
-        for(TransactionType type : types)
+        for(Contact contact : contacts)
         {
             // Create a table row
             TableRow tableRow = new TableRow(this);
 
-            // Create textview that has the transaction type name
+            // Create textview that has the transaction contact name
             TextView textView = new TextView(this);
-            textView.setText(type.getTransactionType());
+            textView.setText(contact.getContactName());
 
-            // Create a checkbox for the type entry
+            // Create a checkbox for the contact entry
             CheckBox checkBox = new CheckBox(this);
             // Bind the checkbox with the id from the db
-            checkBox.setId(type.getTransactionTypeId());
+            checkBox.setId(contact.getContactId());
 
             // Add the 2 views into the table row
             tableRow.addView(textView);

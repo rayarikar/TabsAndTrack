@@ -40,14 +40,14 @@
                 android:onClick="onEditTypesClick" />
 
         <Button
-                android:id="@+id/addContactsBtn"
+                android:id="@+id/editContactsBtn"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="10dp"
-                android:hint="Add Contacts"
-                android:onClick="onAddContactsClick" />
+                android:hint="Edit Contacts"
+                android:onClick="onEditContactsClick" />
         
     </LinearLayout>
 

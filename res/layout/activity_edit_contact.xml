@@ -1,0 +1,72 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:context=".EditContactActivity" >
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <EditText
+                    android:id="@+id/editContactName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.70"
+                    android:layout_margin="10dp"
+                    android:ems="10"
+                    android:hint="@string/contactNameHint"
+                    android:inputType="textPersonName" >
+            </EditText>
+
+            <Button
+                    android:id="@+id/addContactButton"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.30"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10dp"
+                    android:hint="@string/addContactHint"
+                    android:onClick="onAddContactClick" />
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/editContacts"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                android:ems="10"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:orientation="horizontal">
+            <Button
+                    android:id="@+id/deleteButton"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:hint="@string/deleteButtonHint"
+                    android:onClick="onDeleteClick" />
+
+            <Button
+                    android:id="@+id/doneButton"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:hint="@string/doneButton"
+                    android:onClick="onDoneClick"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

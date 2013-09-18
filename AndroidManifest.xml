@@ -47,8 +47,8 @@
             android:label="@string/title_activity_edit_type" >
         </activity>
         <activity
-            android:name="com.tnt.activity.AddContactActivity"
-            android:label="@string/title_activity_add_contact" >
+                android:name="com.tnt.activity.EditContactActivity"
+                android:label="@string/title_activity_edit_contact" >
         </activity>
         <activity
             android:name="com.tnt.activity.GroupExpenseActivity"

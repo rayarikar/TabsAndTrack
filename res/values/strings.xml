@@ -11,6 +11,7 @@
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_activity_group_expense">GroupExpenseActivity</string>
     <string name="title_activity_group_expense_split">GroupExpenseSplitActivity</string>
+    <string name="title_activity_edit_contact">EditContactActivity</string>
 
     <!-- global -->
     <string name="nextButton">Next</string>
@@ -57,7 +58,6 @@
     <string name="deleteButtonHint">Delete</string>
 
     <!-- activity_edit_contact -->
-    <string name="title_activity_edit_contact">AddContactActivity</string>
     <string name="contactNameHint">Contact Name</string>
     <string name="addMoreContactsHint">Add More</string>
 

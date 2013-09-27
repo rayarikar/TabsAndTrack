@@ -24,8 +24,9 @@ import java.util.List;
 public class EditContactActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
     private RuntimeExceptionDao<Contact,Integer> contactDao;
-    private static final String DUPLICATE_CONTACT_NAME_ERR = "This name already exists! Please enter some other name.";
-    private static final String BLANK_CONTACT_NAME_ERR = "Contact Name cannot be blank! Please enter some name.";
+    public static final String DUPLICATE_CONTACT_NAME_ERR = "This name already exists. " +
+    		"Please try again with different name.";
+    public static final String BLANK_CONTACT_NAME_ERR = "Please enter the name to add";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,7 @@ public class EditContactActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     	// clear the text box
     	editText.setText("");
 
+    	// checks if the contact exits or not
         if(Validation.isInputBlank(contactName))
         {
             Toast blankContactNameToast = Toast.makeText(this, BLANK_CONTACT_NAME_ERR, Toast.LENGTH_LONG);
@@ -73,7 +75,8 @@ public class EditContactActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         }
     }
 
-    private boolean isContactNameDuplicate(String contactName)
+    // checks for the duplicate contacts
+    public boolean isContactNameDuplicate(String contactName)
     {
         List<Contact> contacts = getContacts();
 

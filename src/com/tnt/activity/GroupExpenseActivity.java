@@ -51,7 +51,6 @@ public class GroupExpenseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	int month = c.get(Calendar.MONTH);
 	int day = c.get(Calendar.DAY_OF_MONTH);
 
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -70,9 +69,10 @@ public class GroupExpenseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		groupAccountNameSpinner = ((Spinner) findViewById(R.id.groupAccountType));
 		groupSplitRadioChoice = (RadioGroup) findViewById(R.id.split_transaction_radio_group);
 
-		// populates all the spinners
+
+		// populate the TransactionType and Accounts spinner data
 		loadTransactionTypeSpinnerData();
-		loadAccountsSpinnerData();
+		loadAccountsSpinnerData();	
 	}
 
 	@Override
@@ -125,31 +125,31 @@ public class GroupExpenseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 			// check whether the amount is valid. Then only proceed
 			if (Validation.isAmountValid(transAmount)){
 
-			double transactionTotalAmount = Double.parseDouble(transAmount);	
-			String transactionName = groupTransactionName.getText().toString();
-			String transactionDate = groupTransactionDate.getDayOfMonth() + "/" + groupTransactionDate.getMonth() + "/" + groupTransactionDate.getYear();
-			// gets the id of selected radio button
-			int radioId=  groupSplitRadioChoice.getCheckedRadioButtonId();
-			String radioSelectedValue = ((RadioButton) findViewById(radioId)).getText().toString();
+				double transactionTotalAmount = Double.parseDouble(transAmount);	
+				String transactionName = groupTransactionName.getText().toString();
+				String transactionDate = groupTransactionDate.getDayOfMonth() + "/" + groupTransactionDate.getMonth() + "/" + groupTransactionDate.getYear();
+				// gets the id of selected radio button
+				int radioId=  groupSplitRadioChoice.getCheckedRadioButtonId();
+				String radioSelectedValue = ((RadioButton) findViewById(radioId)).getText().toString();
 
-			int accountId = 0;
-			int transactionTypeId = 0;
-			// get the accountId
-			List<Account> allAccounts = accountDao.queryForAll();
-			for (Account account : allAccounts){
-				if (account.getAccountName().equalsIgnoreCase(trasactionAccount)){
-					accountId = account.getAccountId();
+				int accountId = 0;
+				int transactionTypeId = 0;
+				// get the accountId
+				List<Account> allAccounts = accountDao.queryForAll();
+				for (Account account : allAccounts){
+					if (account.getAccountName().equalsIgnoreCase(trasactionAccount)){
+						accountId = account.getAccountId();
+					}
 				}
-			}
 
-			// get the transactionId
-			List<TransactionType> allTransactionTypes = transactionTypeDao.queryForAll();
-			for (TransactionType transType : allTransactionTypes){
-				if (transType.getTransactionType().equalsIgnoreCase(transactionType)){
-					transactionTypeId = transType.getTransactionTypeId();
+				// get the transactionId
+				List<TransactionType> allTransactionTypes = transactionTypeDao.queryForAll();
+				for (TransactionType transType : allTransactionTypes){
+					if (transType.getTransactionType().equalsIgnoreCase(transactionType)){
+						transactionTypeId = transType.getTransactionTypeId();
+					}
 				}
-			}
-				
+
 				// set the variables in Transaction class
 				Transaction groupTransaction = new Transaction();
 				groupTransaction.setAccountId(accountId);
@@ -158,14 +158,13 @@ public class GroupExpenseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 				groupTransaction.setTransactionDate(transactionDate);
 				groupTransaction.setTransactionTotalAmount(transactionTotalAmount);
 				groupTransaction.setExpenseType(ExpenseUtility.expenseTypeGroup);
-				
+
 				// redirect to the contacts activity
 				Intent redirectToGrpExpSplitIntent = new Intent(this, GroupExpenseSplitActivity.class);
 				// pass the transaction object and the string which indicates how to split the transaction
 				redirectToGrpExpSplitIntent.putExtra("CallingActivity", "GroupExpenseActivity");
 				redirectToGrpExpSplitIntent.putExtra("TransactionObject", groupTransaction);
 				redirectToGrpExpSplitIntent.putExtra("RadioButtonValue", radioSelectedValue);
-				finish();
 				startActivity(redirectToGrpExpSplitIntent);
 			} else {
 				Toast invalidNumberToast = Toast.makeText(this, "Amount should be a valid number", Toast.LENGTH_LONG);
@@ -252,7 +251,5 @@ public class GroupExpenseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		// attaching data adapter to spinner
 		groupAccountNameSpinner.setAdapter(accountNameAdapter);
 	}
-
-
 
 }

@@ -15,6 +15,7 @@
 
     <!-- global -->
     <string name="nextButton">Next</string>
+    <string name="backButton">Back</string>
     <string name="cancelButton">Cancel</string>
     <string name="doneButton">Done</string>
     <string name="resetButton">Reset</string>
@@ -69,6 +70,5 @@
     <!-- activity_group_expense_split -->
     <string name="groupContactHint">Quick add a contact</string>
     <string name="addContactHint">Add contact</string>
-    
 
 </resources>

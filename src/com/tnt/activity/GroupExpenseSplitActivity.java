@@ -4,29 +4,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-import com.j256.ormlite.dao.RuntimeExceptionDao;
-import com.tnt.R;
-import com.tnt.R.layout;
-import com.tnt.R.menu;
-import com.tnt.dboperation.DatabaseHelper;
-import com.tnt.entity.Contact;
-import com.tnt.entity.Transaction;
-import com.tnt.entity.TransactionType;
-import com.tnt.utility.ExpenseUtility;
-import com.tnt.utility.Validation;
-
-import android.os.Bundle;
-import android.app.Activity;
-import android.app.DialogFragment;
-import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -34,6 +18,15 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
+import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.tnt.R;
+import com.tnt.dboperation.DatabaseHelper;
+import com.tnt.entity.Contact;
+import com.tnt.entity.Transaction;
+import com.tnt.utility.ExpenseUtility;
+import com.tnt.utility.Validation;
 
 public class GroupExpenseSplitActivity extends
 OrmLiteBaseActivity<DatabaseHelper> {
@@ -48,8 +41,7 @@ OrmLiteBaseActivity<DatabaseHelper> {
 	private static int ALLOW_DECIMAL_NUMBERS = 8192;
 	private static int WIDTH_AMOUNT_BOX = 200;
 	private static int HEIGHT_AMOUNT_BOX = 50;
-	private static int SERIAL_NUMBER = 1;
-
+	
 	private double transactionAmount = 0.0;
 	private List<Contact> contacts = null;
 	private Transaction transObj = null;
@@ -127,14 +119,16 @@ OrmLiteBaseActivity<DatabaseHelper> {
 					Toast.LENGTH_LONG);
 			blankContactNameToast.show();
 		} else {
+			// if the contact name is not blank then check if its a duplicate contact
 			if (!isContactNameDuplicate(contactName)) {
 				saveContact(contactName);
 				// update the contacts list
 				contacts = getAllContacts();
 				// update the map
 				populateContactsMap();
-				// re render the view
-				generateListViewForEqualSplit();
+				// re-render the view
+				renderView();
+				
 			} else {
 				Toast duplicateContactNameToast = Toast.makeText(this,
 						EditContactActivity.DUPLICATE_CONTACT_NAME_ERR,
@@ -144,15 +138,17 @@ OrmLiteBaseActivity<DatabaseHelper> {
 		}
 	}
 
-	// checks for the duplicate contacts
+	/**
+	 * checks for the duplicate contacts
+	 * @param contactName
+	 * @return
+	 */
 	public boolean isContactNameDuplicate(String contactName) {
 		List<Contact> contacts = getAllContacts();
-
 		for (Contact contact : contacts) {
 			if (contact.getContactName().equalsIgnoreCase(contactName))
 				return true;
 		}
-
 		return false;
 	}
 
@@ -164,22 +160,18 @@ OrmLiteBaseActivity<DatabaseHelper> {
 	private void saveContact(String contactName) {
 		Contact contactObj = new Contact();
 		contactObj.setContactName(contactName);
-
 		// persist into database
 		contactDao.create(contactObj);
 	}
 
+	/**
+	 * based on the type of split choice- equally or unequally, the list display is rendered
+	 */
 	private void renderView() {
-
-
-		View view = null;
-
-		// based on the type of split choice- equally or unequally, the list
-		// display is rendered
 		if (getString(R.string.splitEqually).equals(splitType)) {
 			generateListViewForEqualSplit();
 		} else if (getString(R.string.splitUnequally).equals(splitType)) {
-			view = generateListViewForUnequalSplit(contacts);
+			generateListViewForUnequalSplit();
 		}
 
 	}
@@ -197,7 +189,7 @@ OrmLiteBaseActivity<DatabaseHelper> {
 		for(Boolean isChecked : checkedList)
 			if(isChecked)
 				count++;
-		
+
 		return count;
 	}
 
@@ -219,10 +211,10 @@ OrmLiteBaseActivity<DatabaseHelper> {
 			CheckBox contactSelectedCheckBox = new CheckBox(this);
 			int contactId = contact.getContactId();
 			contactSelectedCheckBox.setId(contactId);
-			
+
 			boolean isChecked = checkedContactsMap.get(contactId);
 			contactSelectedCheckBox.setChecked(isChecked);
-			contactSelectedCheckBox.setOnClickListener(customCheckBoxClickListener);
+			contactSelectedCheckBox.setOnClickListener(customCheckBoxClickListenerForEqualSplit);
 
 			// Create textview that has the contact name
 			TextView contactNameTextView = new TextView(this);
@@ -233,14 +225,14 @@ OrmLiteBaseActivity<DatabaseHelper> {
 			amountBox.setInputType(NUMBER_INPUT_TYPE);
 			amountBox.setInputType(ALLOW_DECIMAL_NUMBERS);
 			amountBox.setFocusable(false);
-			
+
 			double finalAmount = 0;
-			
+
 			if(noOfPeopleInvolved == 0 || !isChecked)
 				finalAmount = 0;
 			else
 				finalAmount = transactionAmount / noOfPeopleInvolved;
-			
+
 			amountBox.setText(Math.round(finalAmount*100.0)/100.0 + "");
 			amountBox.setWidth(ExpenseUtility.getIntInPixels(this,
 					WIDTH_AMOUNT_BOX));
@@ -260,62 +252,14 @@ OrmLiteBaseActivity<DatabaseHelper> {
 		// Add new data
 		linearLayout.addView(tableLayout);
 	}
-
-	// generates view when the split selected is unequally
-	private View generateListViewForUnequalSplit(List<Contact> contacts) {
-		// Create the table layout
-		TableLayout tableLayout = new TableLayout(this);
-		for (Contact contact : contacts) {
-			// Create a table row
-			TableRow tableRow = new TableRow(this);
-
-			// set the counter number followed by 2 blank spaces
-			TextView counterView = new TextView(this);
-			counterView.setText(SERIAL_NUMBER + ".  ");
-
-			// Create textview that has the contact name
-			TextView textView = new TextView(this);
-			textView.setText(contact.getContactName() + "  ");
-
-			EditText amountBox = new EditText(this);
-			amountBox.setInputType(NUMBER_INPUT_TYPE);
-			amountBox.setInputType(ALLOW_DECIMAL_NUMBERS);
-			amountBox.setWidth(ExpenseUtility.getIntInPixels(this,
-					WIDTH_AMOUNT_BOX));
-			amountBox.setHeight(ExpenseUtility.getIntInPixels(this,
-					HEIGHT_AMOUNT_BOX));
-
-			// Add the 2 views into the table row
-			tableRow.addView(counterView);
-			tableRow.addView(textView);
-			tableRow.addView(amountBox);
-			SERIAL_NUMBER++;
-
-			// Add the table row to the table
-			tableLayout.addView(tableRow, new TableLayout.LayoutParams(
-					TableLayout.LayoutParams.MATCH_PARENT,
-					TableLayout.LayoutParams.WRAP_CONTENT));
-		}
-
-		return tableLayout;
-	}
-
-	// populates the contact details in map
-	public void populateContactsMap() {
-		List<Contact> allContacts = getAllContacts();
-		for (Contact contact : allContacts) {
-			checkedContactsMap.put(contact.getContactId(), true);
-		}
-	}
-
-	public void onDoneClick(View view) {
-		String splitType = groupExpenseIntent
-				.getStringExtra("RadioButtonValue");
-		// when split equally is checked the activiy should show a confirm box
-		// saying what is the amount for each person.
-	}
-
-	public OnClickListener customCheckBoxClickListener = new OnClickListener()
+	
+	/**
+	 * This on click listener is for Equal splits
+	 * this click listener is called every time any action is done on the check-box 
+	 * If the check box is clicked we set the value of that contact in the map to true
+	 * else false.
+	 */
+	public OnClickListener customCheckBoxClickListenerForEqualSplit = new OnClickListener()
 	{
 		public void onClick(final View view)
 		{
@@ -329,5 +273,91 @@ OrmLiteBaseActivity<DatabaseHelper> {
 			generateListViewForEqualSplit();
 		}
 	};
+
+	// generates view when the split selected is unequally
+	private void generateListViewForUnequalSplit() {
+		// Clear previous data
+		linearLayout.removeAllViews();
+
+		// Create the table layout
+		TableLayout tableLayout = new TableLayout(this);
+		for (Contact contact : contacts) {
+			// Create a table row
+			TableRow tableRow = new TableRow(this);
+
+			// Create a checkbox for the type entry and bind with contact id
+			CheckBox contactSelectedCheckBox = new CheckBox(this);
+			int contactId = contact.getContactId();
+			contactSelectedCheckBox.setId(contactId);
+
+			boolean isChecked = checkedContactsMap.get(contactId);
+			contactSelectedCheckBox.setChecked(isChecked);
+			contactSelectedCheckBox.setOnClickListener(customCheckBoxClickListenerForUnequalSplit);
+
+			// Create textview that has the contact name
+			TextView contactNameTextView = new TextView(this);
+			contactNameTextView.setText(contact.getContactName() + "  ");
+
+			// Edit text to display the amount split equally
+			EditText amountBox = new EditText(this);
+			amountBox.setInputType(NUMBER_INPUT_TYPE);
+			amountBox.setInputType(ALLOW_DECIMAL_NUMBERS);
+			amountBox.setWidth(ExpenseUtility.getIntInPixels(this,
+					WIDTH_AMOUNT_BOX));
+			amountBox.setHeight(ExpenseUtility.getIntInPixels(this,
+					HEIGHT_AMOUNT_BOX));
+
+			// if the contact is checked enable that checkbox, else disable it
+			if(!isChecked)
+				amountBox.setEnabled(false);
+			else
+				amountBox.setEnabled(true);
+
+			// Add the checkbox, name and amount into the table row
+			tableRow.addView(contactSelectedCheckBox);
+			tableRow.addView(contactNameTextView);
+			tableRow.addView(amountBox);
+
+			// Add the table row to the table
+			tableLayout.addView(tableRow, new TableLayout.LayoutParams(
+					TableLayout.LayoutParams.MATCH_PARENT,
+					TableLayout.LayoutParams.WRAP_CONTENT));
+		}
+		// Add new data
+		linearLayout.addView(tableLayout);
+	}
+	
+	/**
+	 * This onClick listener is for Unequal splits
+	 * this click listener is called every time any action is done on the check-box 
+	 * If the check box is clicked we set the value of that contact in the map to true
+	 * else false.
+	 */
+	public OnClickListener customCheckBoxClickListenerForUnequalSplit = new OnClickListener()
+	{
+		public void onClick(final View view)
+		{
+			CheckBox currCheckBox = (CheckBox) view;
+			if (currCheckBox.isChecked())
+				checkedContactsMap.put(currCheckBox.getId(), true);
+			else
+				checkedContactsMap.put(currCheckBox.getId(), false);
+
+			//re rendering the view
+			generateListViewForUnequalSplit();
+		}
+	};
+
+	// populates the contact details in map
+	public void populateContactsMap() {
+		List<Contact> allContacts = getAllContacts();
+		for (Contact contact : allContacts) {
+			checkedContactsMap.put(contact.getContactId(), true);
+		}
+	}
+
+	public void onDoneClick(View view) {
+		// on done click the transaction should get persisted
+	}
 
 }

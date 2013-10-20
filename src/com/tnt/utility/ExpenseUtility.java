@@ -26,6 +26,11 @@ public class ExpenseUtility {
 	public static String expenseTypePersonal = "Personal";
 	public static String expenseTypeGroup = "Group";
 	
+	public static String SELF = "Self";
+	public static String SPACE = " ";
+	public static String OPEN_ROUND_PARANTHESIS = "(";
+	public static String CLOSE_ROUND_PARANTHESIS = ")";
+	
 	/**
 	 * This method returns all the defaults of the transactionType dropdown list
 	 * @return
@@ -52,5 +57,20 @@ public class ExpenseUtility {
  	   float scale = context.getResources().getDisplayMetrics().density;
  	   return (int) (pixels * scale + 0.5f);
  	}
+    
+    /**
+     * This method takes in the StringBuilder and removes the white space which occurs at the end of the StringBuilder
+     * in case there is any.
+     * @param inputBuilder
+     * @return
+     */
+    public static StringBuilder removeBlankSpaceAtEnd(StringBuilder inputBuilder) {
+		int i = inputBuilder.length();
+		if (Character.isWhitespace(inputBuilder.charAt(i))) {
+			inputBuilder.deleteCharAt(i);
+		}
+		return inputBuilder;
+	}
+
 	
 }

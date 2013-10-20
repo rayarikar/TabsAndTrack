@@ -33,7 +33,6 @@ public class SignUpActivity extends Activity {
 			userInfo.setUsername(username);
 			userInfo.setPassword(password);
 			
-
 			Intent signUpIntent = new Intent(this, AddAccountActivity.class);
 			signUpIntent.putExtra("userInfoObj",  userInfo);
 			startActivity(signUpIntent);
@@ -46,5 +45,4 @@ public class SignUpActivity extends Activity {
 		Intent redirectToLogin = new Intent(this, LoginActivity.class);
 		startActivity(redirectToLogin);
 	}
-
 }

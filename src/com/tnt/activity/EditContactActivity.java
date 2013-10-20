@@ -161,7 +161,7 @@ public class EditContactActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     private List<Contact> getContacts()
     {
         List<Contact> contacts = contactDao.queryForAll();
-
+        
         return contacts;
     }
 

@@ -24,6 +24,7 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.tnt.R;
 import com.tnt.dboperation.DatabaseHelper;
 import com.tnt.entity.Contact;
+import com.tnt.entity.GroupTransaction;
 import com.tnt.entity.Transaction;
 import com.tnt.utility.ExpenseUtility;
 import com.tnt.utility.Validation;
@@ -33,6 +34,8 @@ OrmLiteBaseActivity<DatabaseHelper> {
 
 	String callingActivity;
 	private RuntimeExceptionDao<Contact, Integer> contactDao;
+	private RuntimeExceptionDao<Transaction, Integer> transactionDao;
+	private RuntimeExceptionDao<GroupTransaction, Integer> groupTransactionDao;
 
 	// map to store all the checked contacts information
 	private HashMap<Integer, Boolean> checkedContactsMap = new HashMap<Integer, Boolean>();
@@ -56,6 +59,8 @@ OrmLiteBaseActivity<DatabaseHelper> {
 		setContentView(R.layout.activity_group_expense_split);
 		try {
 			contactDao = getHelper().getContactDao();
+			transactionDao = getHelper().getTransactionDao();
+			groupTransactionDao = getHelper().getGroupTransactionDao();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -71,13 +76,10 @@ OrmLiteBaseActivity<DatabaseHelper> {
 
 		// populate the contacts list
 		contacts = getAllContacts();
-
 		// populate the checked contacts map
 		populateContactsMap();
-
 		// get the linear layout which is the container
 		linearLayout = (LinearLayout) findViewById(R.id.groupExpenseSplitContactDisplay);
-
 		// Render the view
 		renderView();
 
@@ -352,12 +354,24 @@ OrmLiteBaseActivity<DatabaseHelper> {
 	public void populateContactsMap() {
 		List<Contact> allContacts = getAllContacts();
 		for (Contact contact : allContacts) {
-			checkedContactsMap.put(contact.getContactId(), true);
+			checkedContactsMap.put(contact.getContactId(), false);
 		}
 	}
 
 	public void onDoneClick(View view) {
-		// on done click the transaction should get persisted
+		// on done click the data for Transaction table should get persisted
+		
+		// Validate here -> If no contacts are selected then give a Toast. Move ahead only if a contact is selected
+		
+		if (transObj != null)
+		{
+			// persist into Transaction
+			transactionDao.create(transObj);
+			// now persist into groupTransaction for every contact
+			
+			
+		}
+		
 	}
 
 }

@@ -152,9 +152,9 @@ public class GroupExpenseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 				// set the variables in Transaction class
 				Transaction groupTransaction = new Transaction();
-				groupTransaction.setAccountId(accountId);
+				groupTransaction.setAccount(accountDao.queryForId(accountId));
 				groupTransaction.setTransactionName(transactionName);
-				groupTransaction.setTransactionTypeId(transactionTypeId);
+				groupTransaction.setTransactionType(transactionTypeDao.queryForId(transactionTypeId));
 				groupTransaction.setTransactionDate(transactionDate);
 				groupTransaction.setTransactionTotalAmount(transactionTotalAmount);
 				groupTransaction.setExpenseType(ExpenseUtility.expenseTypeGroup);

@@ -47,8 +47,8 @@
             android:label="@string/title_activity_edit_type" >
         </activity>
         <activity
-                android:name="com.tnt.activity.EditContactActivity"
-                android:label="@string/title_activity_edit_contact" >
+            android:name="com.tnt.activity.EditContactActivity"
+            android:label="@string/title_activity_edit_contact" >
         </activity>
         <activity
             android:name="com.tnt.activity.GroupExpenseActivity"
@@ -57,6 +57,10 @@
         <activity
             android:name="com.tnt.activity.GroupExpenseSplitActivity"
             android:label="@string/title_activity_group_expense_split" >
+        </activity>
+        <activity
+            android:name="com.tnt.DisplayPersonalTransactions"
+            android:label="@string/title_activity_display_personal_transactions" >
         </activity>
     </application>
 

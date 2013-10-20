@@ -86,33 +86,40 @@ public class LoginActivity extends OrmLiteBaseActivity<DatabaseHelper>{
 	 * @throws SQLException
 	 * @author Rohan / Ameya
 	 */
-	public void onSignInClick(View v) throws SQLException{
+	public void onSignInClick(View v){
+
 		// get all the details of login activity
 		String enteredUserName = ((EditText) findViewById(R.id.userName)).getText().toString();
 		String enteredPassword = ((EditText) findViewById(R.id.password)).getText().toString();
 		boolean isRemeberMeChecked = ((CheckBox) findViewById(R.id.rememberMe)).isChecked();
 
-		List<UserDetails> userDetailsList = userDetailsDao.queryForAll();
-		boolean isLoginSuccess = false;
+		try{
+			List<UserDetails> userDetailsList = userDetailsDao.queryForAll();
+			boolean isLoginSuccess = false;
 
-		// loop over the list to get the user name and stores the remember me selection in a shared preference
-		for (UserDetails user : userDetailsList){
-			if (enteredUserName.equalsIgnoreCase(user.getUsername()) && enteredPassword.equals(user.getPassword()))
-			{
-				isLoginSuccess = true;
-				// set the user input of remember me
-				setRemeberMeInSharedPreferences(isRemeberMeChecked);
-				finish();
-				Intent redirectToHome = new Intent(this, HomeActivity.class);
-				redirectToHome.putExtra("com.tnt.activity.userObj", user);
-				startActivity(redirectToHome);
-				break;
+			// loop over the list to get the user name and stores the remember me selection in a shared preference
+			for (UserDetails user : userDetailsList){
+				if (enteredUserName.equalsIgnoreCase(user.getUsername()) && enteredPassword.equals(user.getPassword()))
+				{
+					isLoginSuccess = true;
+					// set the user input of remember me
+					setRemeberMeInSharedPreferences(isRemeberMeChecked);
+					finish();
+					Intent redirectToHome = new Intent(this, HomeActivity.class);
+					redirectToHome.putExtra("com.tnt.activity.userObj", user);
+					startActivity(redirectToHome);
+					break;
+				}
+			}
+			if (!isLoginSuccess){
+				Toast invalidLoginToast = Toast.makeText(this, "Invalid username or password. Please try again", Toast.LENGTH_LONG);
+				invalidLoginToast.show();		
 			}
 		}
-		if (!isLoginSuccess){
-			Toast invalidLoginToast = Toast.makeText(this, "Invalid username or password. Please try again", Toast.LENGTH_LONG);
-			invalidLoginToast.show();		
-		}		
+		catch (Exception e){
+			Toast invalidToast = Toast.makeText(this, "Please sign up first", Toast.LENGTH_LONG);
+			invalidToast.show();
+		}
 	}
 
 	/**

@@ -1,10 +1,9 @@
-Ameya
-1- View Transactions Table
-2- add friends (ditto like add types)
-table name: contacts
-attributes: contactId and contactName
+1- Create a Self (name last name) in db
+When user signs up, check if the (name last name) exists in the db. If not add it to the contacts table.
 
-Rohan
-1- Group Expense activity (all except done)
-2- accounts activity add more accounts
-3- remove select from db. handle it at front end
+2- Persist Transactions for personal and group activities
+
+Personal  Transaction Persist
+In case of group with self checked, persist in self entry in personalTransaction and the rest in groupTransaction
+
+3-  Display everything in transaction

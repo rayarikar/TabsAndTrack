@@ -18,7 +18,9 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.tnt.R;
 import com.tnt.dboperation.DatabaseHelper;
 import com.tnt.entity.Account;
+import com.tnt.entity.Contact;
 import com.tnt.entity.UserDetails;
+import com.tnt.utility.ExpenseUtility;
 
 /**
  * This class adds the user details and account into the database using DAOs.
@@ -28,6 +30,7 @@ public class AddAccountActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	UserDetails userDetails;
 	private RuntimeExceptionDao<Account,Integer> accountDao;
+	private RuntimeExceptionDao<Contact,Integer> contactDao;
 	Intent userDetailsIntent;
 	Intent accountIntent;
 
@@ -36,6 +39,7 @@ public class AddAccountActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		super.onCreate(savedInstanceState);
 		try{
 			accountDao = getHelper().getAccountDao();
+			contactDao = getHelper().getContactDao();
 		} catch(Exception e){
 			e.printStackTrace();
 		}
@@ -84,7 +88,10 @@ public class AddAccountActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 		// persist user details into the db
 		if (userDetails.getUsername() != null)
+		{
 			persistIntoUserDetails();
+			addSelfUserToContact();
+		}
 
 		Account account = new Account();
 		String accountName = ((EditText) findViewById(R.id.accountName))
@@ -108,8 +115,7 @@ public class AddAccountActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 				}
 			}
 		}
-
-
+		
 		// if it is a duplicate account then give a toast 
 		// else persists the account details and check for add more accounts checked
 		// if the add more accounts is not checked then redirect to home
@@ -126,6 +132,7 @@ public class AddAccountActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		}
 
 		// pass the user details intent again and call this activity again
+		// not written as else above cause it should display prompt for each acc
 		if (isAddMoreAccountsChecked){
 			Intent addAccountsIntent = new Intent(this, AddAccountActivity.class);
 			addAccountsIntent.putExtra("userInfoObj", new UserDetails());
@@ -133,6 +140,55 @@ public class AddAccountActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 			startActivity(addAccountsIntent);
 		}
 
+	}
+
+
+	/**
+	 * This method adds the user-name to the contact table. The user name added is in form of
+	 * Self (FirstName LastName).
+	 * User can sign up only once so the user name will be added only once
+	 */
+	private void addSelfUserToContact() {
+		try{
+
+			StringBuilder selfName = new StringBuilder();
+			selfName.append(ExpenseUtility.SELF).append(ExpenseUtility.SPACE);
+			selfName.append(ExpenseUtility.OPEN_ROUND_PARANTHESIS);
+			selfName.append(userDetails.getFirstName()).append(ExpenseUtility.SPACE);
+			selfName.append(userDetails.getLastName());
+			selfName.append(ExpenseUtility.CLOSE_ROUND_PARANTHESIS);
+
+			// check if the same contact exists in the database else add it
+			if(!isContactNameDuplicate(selfName.toString())){
+				Contact contactObj = new Contact();
+				contactObj.setContactName(selfName.toString());
+				// persist into database
+				contactDao.create(contactObj);
+			}
+		}catch (Exception e) {
+			Log.e("Error Inserting Data", "Error Inserting Data");
+		}
+	}
+	
+	// checks for the duplicate contacts
+	public boolean isContactNameDuplicate(String contactName)
+	{
+		List<Contact> contacts = getContacts();
+
+		for(Contact contact: contacts)
+		{
+			if(contact.getContactName().equalsIgnoreCase(contactName))
+				return true;
+		}
+
+		return false;
+	}
+
+	private List<Contact> getContacts()
+	{
+		List<Contact> contacts = contactDao.queryForAll();
+
+		return contacts;
 	}
 
 	/**

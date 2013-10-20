@@ -66,9 +66,10 @@
     <string name="splitEqually">Equally</string>
     <string name="splitUnequally">Unequally</string>
     <string name="splitAmountHint">Split amount:</string>
-    
+
     <!-- activity_group_expense_split -->
     <string name="groupContactHint">Quick add a contact</string>
     <string name="addContactHint">Add contact</string>
+    <string name="title_activity_display_personal_transactions">DisplayPersonalTransactions</string>
 
 </resources>

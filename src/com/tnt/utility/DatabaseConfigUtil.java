@@ -1,12 +1,7 @@
 package com.tnt.utility;
 
 import com.j256.ormlite.android.apptools.OrmLiteConfigUtil;
-import com.tnt.entity.Account;
-import com.tnt.entity.Contact;
-import com.tnt.entity.ContactTransaction;
-import com.tnt.entity.Transaction;
-import com.tnt.entity.TransactionType;
-import com.tnt.entity.UserDetails;
+import com.tnt.entity.*;
 
 public class DatabaseConfigUtil extends OrmLiteConfigUtil {
 	private static final Class<?>[] classes = new Class[] {
@@ -15,7 +10,8 @@ public class DatabaseConfigUtil extends OrmLiteConfigUtil {
 		TransactionType.class,
         Contact.class,
         Transaction.class,
-        ContactTransaction.class,
+        GroupTransaction.class,
+        PersonalTransaction.class
 	};
 	public static void main(String[] args) throws Exception {
 		writeConfigFile("ormlite_config.txt");

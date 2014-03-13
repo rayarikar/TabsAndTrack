@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -26,6 +27,7 @@ import com.tnt.dboperation.DatabaseHelper;
 import com.tnt.entity.Contact;
 import com.tnt.entity.GroupTransaction;
 import com.tnt.entity.Transaction;
+import com.tnt.utility.ConstantUtility;
 import com.tnt.utility.ExpenseUtility;
 import com.tnt.utility.Validation;
 
@@ -44,6 +46,7 @@ OrmLiteBaseActivity<DatabaseHelper> {
 	private static int ALLOW_DECIMAL_NUMBERS = 8192;
 	private static int WIDTH_AMOUNT_BOX = 200;
 	private static int HEIGHT_AMOUNT_BOX = 50;
+	private static int AMOUNT_BOX_ID = 10;
 	
 	private double transactionAmount = 0.0;
 	private List<Contact> contacts = null;
@@ -302,6 +305,7 @@ OrmLiteBaseActivity<DatabaseHelper> {
 
 			// Edit text to display the amount split equally
 			EditText amountBox = new EditText(this);
+			amountBox.setId(AMOUNT_BOX_ID++);
 			amountBox.setInputType(NUMBER_INPUT_TYPE);
 			amountBox.setInputType(ALLOW_DECIMAL_NUMBERS);
 			amountBox.setWidth(ExpenseUtility.getIntInPixels(this,
@@ -315,6 +319,8 @@ OrmLiteBaseActivity<DatabaseHelper> {
 			else
 				amountBox.setEnabled(true);
 
+			amountBox.setOnFocusChangeListener(checkValidAmountOnFocusChangeListener);
+			
 			// Add the checkbox, name and amount into the table row
 			tableRow.addView(contactSelectedCheckBox);
 			tableRow.addView(contactNameTextView);
@@ -349,6 +355,22 @@ OrmLiteBaseActivity<DatabaseHelper> {
 			generateListViewForUnequalSplit();
 		}
 	};
+	
+	/**
+	 * 
+	 */
+	public OnFocusChangeListener checkValidAmountOnFocusChangeListener = new OnFocusChangeListener()
+	{
+		public void onFocusChange(View view,boolean hasFocus){
+			if (!hasFocus)
+			{
+				EditText amountBox = (EditText) view;
+				boolean amountValid = true;
+				if (!Validation.isAmountValid(amountBox.getText().toString()))
+					amountValid = false;
+			}
+		}
+	};
 
 	// populates the contact details in map
 	public void populateContactsMap() {
@@ -361,17 +383,30 @@ OrmLiteBaseActivity<DatabaseHelper> {
 	public void onDoneClick(View view) {
 		// on done click the data for Transaction table should get persisted
 		
-		// Validate here -> If no contacts are selected then give a Toast. Move ahead only if a contact is selected
-		
+		// if no contact is selected give a toast
+		if (!checkedContactsMap.containsValue(true)){
+			Toast noContactSelectedToast = Toast.makeText(this, ConstantUtility.FRIEND_NOT_SELECTED, Toast.LENGTH_LONG);
+			noContactSelectedToast.show();
+		}
+		// else if check whether the contact amount is valid or not
+		else if (isAmountValidForAllContacts()){
+			Toast noContactSelectedToast = Toast.makeText(this, ConstantUtility.INVALID_AMOUNT, Toast.LENGTH_LONG);
+			noContactSelectedToast.show();
+		}
 		if (transObj != null)
 		{
 			// persist into Transaction
-			transactionDao.create(transObj);
+			//transactionDao.create(transObj);
 			// now persist into groupTransaction for every contact
 			
 			
 		}
 		
 	}
-
+	
+	private boolean isAmountValidForAllContacts(){
+		EditText amountBox = (EditText) findViewById(AMOUNT_BOX_ID++); 
+		String amount = amountBox.getText().toString();
+		return true;
+	}
 }

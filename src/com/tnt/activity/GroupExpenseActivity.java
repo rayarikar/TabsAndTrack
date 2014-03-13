@@ -7,6 +7,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.SyncStateContract.Constants;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,6 +27,7 @@ import com.tnt.dboperation.DatabaseHelper;
 import com.tnt.entity.Account;
 import com.tnt.entity.Transaction;
 import com.tnt.entity.TransactionType;
+import com.tnt.utility.ConstantUtility;
 import com.tnt.utility.ExpenseUtility;
 import com.tnt.utility.Validation;
 
@@ -167,7 +169,7 @@ public class GroupExpenseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 				redirectToGrpExpSplitIntent.putExtra("RadioButtonValue", radioSelectedValue);
 				startActivity(redirectToGrpExpSplitIntent);
 			} else {
-				Toast invalidNumberToast = Toast.makeText(this, "Amount should be a valid number", Toast.LENGTH_LONG);
+				Toast invalidNumberToast = Toast.makeText(this, ConstantUtility.INVALID_AMOUNT, Toast.LENGTH_LONG);
 				invalidNumberToast.show();
 			}
 		} else {
